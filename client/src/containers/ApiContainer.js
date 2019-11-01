@@ -30,6 +30,14 @@ class ApiContainer extends Component {
 
   }
 
+  apiCall() {
+    const url = ``
+    fetch(url)
+      .then(res => res.json())
+      .then(data => this.state({ data: data }))
+      .catch(err => console.error(err))
+  }
+
   render() {
     return <h1>Container</h1>
   }
