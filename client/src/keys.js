@@ -1,4 +1,2 @@
-const GoogleKey = "AIzaSyCCHUSxEUCNZGVxu1Bg8UZdfeSQzdJRwgo"
-
-
+const GoogleKey = "AIzaSyCCHUSxEUCNZGVxu1Bg8UZdfeSQzdJRwgo";
 export {GoogleKey};
