@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import { ZomatoKey } from '../keys.js'
 
-class ApiContainer extends Component {
+class RestaurantContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: null,
-      coords: null
+      searchTerm: null,
+      selectedRestaurant: null
     }
   }
 
@@ -17,7 +18,6 @@ class ApiContainer extends Component {
       navigator.geolocation.getCurrentPosition(position => {
         lat = position.coords.latitude;
         lon = position.coords.longitude;
-        this.setState({coords: {lat: lat, lon: lon}})
         (this.apiCall(lat, lon))
       })
     }
@@ -35,10 +35,23 @@ class ApiContainer extends Component {
       .catch(err => console.error(err))
   }
 
+  apiQueryCall(query) {
+    const url = `https://developers.zomato.com/api/v2.1/search?q=${query}`
+    fetch(url, {
+      headers: {
+        'user-key': `${ZomatoKey}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => this.setState({ data: data }))
+      .catch(err => console.error(err))
+  }
+
+
   render() {
     return <h1>Container</h1>
   }
 
 }
 
-export default ApiContainer;
+export default RestaurantContainer;
