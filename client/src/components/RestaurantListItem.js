@@ -2,8 +2,8 @@ import React from 'react';
 
 
 const RestaurantListItem = ({
-  name, cuisine, location, price_range, price_level, id,
-  onSelect, selectedRestaurant }) => {
+  name, cuisine, location, price_range, price_level, id, fav,
+  onSelect, selectedRestaurant, onFavCheck }) => {
 
   return (
     <div className="restaurant-list-item">
@@ -15,7 +15,10 @@ const RestaurantListItem = ({
       <button onClick={ () => onSelect(id) }>
       More info...
       </button>
-
+      <input type="checkbox" id="favourite" name="favourite"
+         checked={ fav }
+         onFavCheck={ onFavCheck } />
+      <label for="favourite">One of my favourites!</label>
     </div>
   );
 };

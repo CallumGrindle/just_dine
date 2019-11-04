@@ -2,8 +2,10 @@ import React from 'react';
 import RestaurantListItem from './RestaurantListItem';
 
 const FavouritesList = ({
-  fav_restaurants, selectedRestaurant, onSelect }) => {
-    const restaurantNodes = fav_restaurants.map((restaurant, index) => {
+  favListChecked, favRestaurants, selectedRestaurant,
+  onSelect, onFavCheck }) => {
+    if (!favListChecked) return null;
+    const restaurantNodes = favRestaurants.map((restaurant, index) => {
       return (
         <RestaurantListItem
           key={ restaurant.restaurant.id }
@@ -14,7 +16,7 @@ const FavouritesList = ({
           price_range={ restaurant.restaurant.price_range }
           price_level={ restaurant.restaurant.average_cost_for_two }
           onSelect={ onSelect }
-          restaurant={ restaurant.restaurant }
+          fav={ restaurant.fav }
           selectedRestaurant={ selectedRestaurant }>
       </RestaurantListItem>
   );
