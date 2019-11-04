@@ -1,11 +1,11 @@
 import React from 'react';
-import ApiContainer from './containers/ApiContainer.js';
+import RestaurantContainer from './containers/RestaurantContainer.js';
 
 import './App.css';
 
 function App() {
   return (
-    <ApiContainer />
+    <RestaurantContainer />
   );
 }
 
