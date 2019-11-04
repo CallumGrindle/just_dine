@@ -39,7 +39,7 @@ class RestaurantContainer extends Component {
     const url = `https://developers.zomato.com/api/v2.1/search?q=${query}`
     fetch(url, {
       headers: {
-        'user-key': `${ZomatoKey}`
+        'user-key': `${ ZomatoKey }`
       }
     })
       .then(res => res.json())
