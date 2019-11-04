@@ -3,7 +3,7 @@ import RestaurantListItem from './RestaurantListItem';
 
 const RestaurantList = ({ restaurants, selectedRestaurant, onSelect }) => {
 const restaurantNodes = restaurants.map((restaurant, index) => {
-  if (restaurants == null || restaurants.length === 0){
+  if (restaurants === [] || restaurants.length === 0){
     return <p>Loading...</p>;
   }
   return (
@@ -16,7 +16,6 @@ const restaurantNodes = restaurants.map((restaurant, index) => {
       price_range={ restaurant.restaurant.price_range }
       price_level={ restaurant.restaurant.average_cost_for_two }
       onSelect={ onSelect }
-      restaurant={ restaurant.restaurant }
       selectedRestaurant={ selectedRestaurant }>
     </RestaurantListItem>
   );

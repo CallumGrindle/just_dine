@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { ZomatoKey } from '../keys.js'
 import RestaurantList from '../components/RestaurantList';
 import RestaurantDetail from '../components/RestaurantDetail';
-import AppHeader from '../components/AppHeader'
+import AppHeader from '../components/AppHeader';
+import FavouritesList from '../components/FavouritesList';
 
 
 class RestaurantContainer extends Component {
@@ -72,6 +73,8 @@ class RestaurantContainer extends Component {
             selectedRestaurant={ this.state.selectedRestaurant }/>
           <RestaurantDetail
             selectedRestaurant={ this.state.selectedRestaurant }/>
+          <FavouritesList
+            fav_restaurants={ this.state.fav_restaurants }/>
         </div>
       );
   }
