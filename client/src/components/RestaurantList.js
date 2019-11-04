@@ -1,8 +1,11 @@
 import React from 'react';
 import RestaurantListItem from './RestaurantListItem';
 
-const RestaurantList = ({ restaurants, onSelect }) => {
+const RestaurantList = ({ restaurants, selectedRestaurant, onSelect }) => {
 const restaurantNodes = restaurants.map((restaurant, index) => {
+  if (restaurants == null || restaurants.length === 0){
+    return <p>Loading...</p>;
+  }
   return (
     <RestaurantListItem
       key={ restaurant.restaurant.id }
@@ -12,7 +15,9 @@ const restaurantNodes = restaurants.map((restaurant, index) => {
       location={ restaurant.restaurant.location.city }
       price_range={ restaurant.restaurant.price_range }
       price_level={ restaurant.restaurant.average_cost_for_two }
-      onSelect={ onSelect }>
+      onSelect={ onSelect }
+      restaurant={ restaurant.restaurant }
+      selectedRestaurant={ selectedRestaurant }>
     </RestaurantListItem>
   );
 });

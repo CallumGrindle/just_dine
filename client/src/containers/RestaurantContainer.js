@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { ZomatoKey } from '../keys.js'
 import RestaurantList from '../components/RestaurantList';
-import RestaurantListItem from '../components/RestaurantListItem';
+import RestaurantDetail from '../components/RestaurantDetail';
+
 
 
   class RestaurantContainer extends Component {
@@ -53,7 +54,11 @@ import RestaurantListItem from '../components/RestaurantListItem';
     }
 
     handleSelect(id){
-      this.setState({ selectedRestaurant: id });
+      const restaurant = this.state.restaurants.find((rest) => {
+        return rest.restaurant.id === id
+      });
+
+      this.setState({ selectedRestaurant: restaurant})
     }
 
   render() {
@@ -61,8 +66,10 @@ import RestaurantListItem from '../components/RestaurantListItem';
         <div className="restaurant-container">
           <h1>Just Dine!</h1>
             <RestaurantList
-            restaurants={ this.state.restaurants }
-            onSelect={this.handleSelect}/>
+                restaurants={ this.state.restaurants }
+                onSelect={this.handleSelect}
+                selectedRestaurant={ this.state.selectedRestaurant }/>
+            <RestaurantDetail selectedRestaurant={ this.state.selectedRestaurant }/>
         </div>
       );
   }

@@ -2,7 +2,8 @@ import React from 'react';
 import RestaurantDetail from './RestaurantDetail';
 
 const RestaurantListItem = ({
-  name, cuisine, location, price_range, price_level, id, onSelect }) => {
+  name, cuisine, location, price_range, price_level, id,
+  onSelect, selectedRestaurant }) => {
 
   return (
     <div className="restaurant-list-item">
@@ -14,6 +15,7 @@ const RestaurantListItem = ({
       <button onClick={ () => onSelect(id) }>
       More info...
       </button>
+
     </div>
   );
 };
