@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { ZomatoKey } from '../keys.js'
 import RestaurantList from '../components/RestaurantList';
+import RestaurantListItem from '../components/RestaurantListItem';
 
 
   class RestaurantContainer extends Component {
@@ -11,6 +12,8 @@ import RestaurantList from '../components/RestaurantList';
         searchTerm: null,
         selectedRestaurant: null
       }
+      this.handleSelect = this.handleSelect.bind(this);
+
     }
 
     componentDidMount() {
@@ -49,12 +52,17 @@ import RestaurantList from '../components/RestaurantList';
         .catch(err => console.error(err))
     }
 
+    handleSelect(id){
+      this.setState({ selectedRestaurant: id });
+    }
+
   render() {
     return (
         <div className="restaurant-container">
           <h1>Just Dine!</h1>
             <RestaurantList
-            restaurants={ this.state.restaurants } />
+            restaurants={ this.state.restaurants }
+            onSelect={this.handleSelect}/>
         </div>
       );
   }
