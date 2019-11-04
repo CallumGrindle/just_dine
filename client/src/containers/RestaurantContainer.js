@@ -7,7 +7,7 @@ import RestaurantList from '../components/RestaurantList';
     constructor(props) {
       super(props);
       this.state = {
-        data: null,
+        restaurants: [],
         searchTerm: null,
         selectedRestaurant: null
       }
@@ -45,7 +45,7 @@ import RestaurantList from '../components/RestaurantList';
         }
       })
         .then(res => res.json())
-        .then(data => this.setState({ data: data }))
+        .then(data => this.setState({ restaurants: data }))
         .catch(err => console.error(err))
     }
 
