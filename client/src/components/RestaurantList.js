@@ -1,5 +1,6 @@
 import React from 'react';
 import RestaurantListItem from './RestaurantListItem';
+import './RestaurantList.css'
 
 const RestaurantList = ({ restaurants }) => {
   const restaurantNodes = restaurants.map((restaurant, index) => {
