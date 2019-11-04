@@ -1,11 +1,14 @@
 import React from 'react';
 import RestaurantListItem from './RestaurantListItem';
 
-const RestaurantList = (props) => {
-const restaurantNodes = props.restaurants.map((restaurant, index) => {
+const RestaurantList = ({ restaurants }) => {
+const restaurantNodes = restaurants.map((restaurant, index) => {
   return (
     <RestaurantListItem
       name={ restaurant.restaurant.name }
+      cuisine={ restaurant.restaurant.cuisines }
+      location={ restaurant.restaurant.location.city }
+      price_range={ restaurant.restaurant.price_range }
     />
   );
 });

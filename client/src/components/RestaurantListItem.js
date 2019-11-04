@@ -1,12 +1,16 @@
 import React from 'react';
 
-const RestaurantListItem = ({name}) => {
+const RestaurantListItem = ({ name, cuisine, location, price_range }) => {
 
 
 
   return (
     <div className="restaurant-list-item">
-      <h2> { name } </h2>
+      <h3> { name } </h3>
+      <p>Cuisine: { cuisine }</p>
+      <p>Location: { location }</p>
+      <p>Price Level: { price_range }</p>
+
     </div>
   );
 };
