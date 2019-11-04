@@ -5,17 +5,16 @@ import RestaurantDetail from '../components/RestaurantDetail';
 import AppHeader from '../components/AppHeader'
 
 
-
-  class RestaurantContainer extends Component {
+class RestaurantContainer extends Component {
     constructor(props) {
       super(props);
       this.state = {
         restaurants: [],
         searchTerm: null,
-        selectedRestaurant: null
+        selectedRestaurant: null,
+        fav_restaurants: []
       }
       this.handleSelect = this.handleSelect.bind(this);
-
     }
 
     componentDidMount() {
@@ -55,24 +54,24 @@ import AppHeader from '../components/AppHeader'
     .catch(err => console.error(err))
   }
 
-    handleSelect(id){
-      const restaurant = this.state.restaurants.find((rest) => {
-        return rest.restaurant.id === id
-      });
-
-      this.setState({ selectedRestaurant: restaurant})
-    }
+  handleSelect(id){
+    const restaurant = this.state.restaurants.find((rest) => {
+      return rest.restaurant.id === id
+    });
+    this.setState({ selectedRestaurant: restaurant})
+  }
 
   render() {
     return (
         <div className="restaurant-container">
-        <AppHeader />
-          <h1>Just Dine!</h1>
-            <RestaurantList
-                restaurants={ this.state.restaurants }
-                onSelect={this.handleSelect}
-                selectedRestaurant={ this.state.selectedRestaurant }/>
-            <RestaurantDetail selectedRestaurant={ this.state.selectedRestaurant }/>
+          <AppHeader />
+            <h1>Just Dine!</h1>
+          <RestaurantList
+            restaurants={ this.state.restaurants }
+            onSelect={this.handleSelect}
+            selectedRestaurant={ this.state.selectedRestaurant }/>
+          <RestaurantDetail
+            selectedRestaurant={ this.state.selectedRestaurant }/>
         </div>
       );
   }
