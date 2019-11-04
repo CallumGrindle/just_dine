@@ -51,11 +51,11 @@ import RestaurantList from '../components/RestaurantList';
 
   render() {
     return (
-        <div className="restaurant-container">
+        // <div className="restaurant-container">
           <h1>Container</h1>
-          <RestaurantList
-            restaurants={ this.state.restaurants } />
-        </div>
+          // <RestaurantList
+          //   restaurants={ this.state.restaurants } />
+        // </div>
       );
   }
 }
