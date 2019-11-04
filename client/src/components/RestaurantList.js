@@ -4,16 +4,15 @@ import RestaurantListItem from './RestaurantListItem';
 const RestaurantList = (props) => {
 const restaurantNodes = props.restaurants.map((restaurant, index) => {
   return (
-    <RestaurantListItem />
-
+    <RestaurantListItem
+      name={ restaurant.restaurant.name }
+    />
   );
 });
 
 return (
   <div className="restaurant-list">
     { restaurantNodes }
-    <RestaurantListItem></RestaurantListItem>
-
   </div>
 );
 };

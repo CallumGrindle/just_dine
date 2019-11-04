@@ -33,7 +33,7 @@ import RestaurantList from '../components/RestaurantList';
         }
       })
         .then(res => res.json())
-        .then(data => this.setState({ data: data }))
+        .then(data => this.setState({ restaurants: data.restaurants }))
         .catch(err => console.error(err))
     }
 
@@ -51,11 +51,11 @@ import RestaurantList from '../components/RestaurantList';
 
   render() {
     return (
-        // <div className="restaurant-container">
+        <div className="restaurant-container">
           <h1>Container</h1>
-          // <RestaurantList
-          //   restaurants={ this.state.restaurants } />
-        // </div>
+            <RestaurantList
+            restaurants={ this.state.restaurants } />
+        </div>
       );
   }
 }
