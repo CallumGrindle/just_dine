@@ -22,12 +22,12 @@
   border-color: red;
   border-width: 2px;
   max-width: 150px;
-  min-width: 100px;
+  min-width: 150px;
 }
 
 #logo > h1 {
   font-family: gill sans;
   font-size: 1.8em;
   color: red;
-  margin: none;
+  margin: 0;
 }
