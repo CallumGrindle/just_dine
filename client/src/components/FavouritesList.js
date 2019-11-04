@@ -3,7 +3,7 @@ import RestaurantListItem from './RestaurantListItem';
 
 const FavouritesList = ({
   favListChecked, favRestaurants, selectedRestaurant,
-  onSelect, onFavCheck }) => {
+  onSelect }) => {
     if (!favListChecked) return null;
     const restaurantNodes = favRestaurants.map((restaurant, index) => {
       return (
@@ -15,9 +15,7 @@ const FavouritesList = ({
           location={ restaurant.restaurant.location.city }
           price_range={ restaurant.restaurant.price_range }
           price_level={ restaurant.restaurant.average_cost_for_two }
-          onSelect={ onSelect }
-          fav={ restaurant.fav }
-          selectedRestaurant={ selectedRestaurant }>
+          onSelect={ onSelect }>
       </RestaurantListItem>
   );
 });

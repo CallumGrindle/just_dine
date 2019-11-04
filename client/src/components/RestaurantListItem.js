@@ -11,14 +11,10 @@ const RestaurantListItem = ({
       <p>Cuisine: { cuisine }</p>
       <p>Location: { location }</p>
       <p>Price Range: { price_range },
-      Average Cost for Two: £ { price_level }</p>
+        Average Cost for Two: £ { price_level }</p>
       <button onClick={ () => onSelect(id) }>
-      More info...
+        More info...
       </button>
-      <input type="checkbox" id="favourite" name="favourite"
-         checked={ fav }
-         onFavCheck={ onFavCheck } />
-      <label for="favourite">One of my favourites!</label>
     </div>
   );
 };

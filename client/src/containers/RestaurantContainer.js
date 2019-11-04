@@ -19,7 +19,7 @@ class RestaurantContainer extends Component {
         selectedFavourite: null
       }
       this.handleSelect = this.handleSelect.bind(this);
-      this.handleFavouriteCheckbox = this.handleFavouriteCheckbox.bind(this);
+      this.handleAddFav = this.handleAddFav.bind(this);
     }
 
     componentDidMount() {
@@ -62,21 +62,22 @@ class RestaurantContainer extends Component {
     .catch(err => console.error(err))
   }
 
+  handleFavListSelect(event){
+    this.setState({ favListChecked: event.target.checked })
+  }
+
   handleSelect(id){
     const restaurant = this.state.restaurants.find((rest) => {
       return rest.restaurant.id === id
     });
-    this.setState({ selectedRestaurant: restaurant})
+    this.setState({ selectedRestaurant: restaurant })
   }
 
-  handleFavListSelect(event) {
-    this.setState({ favListChecked: event.target.checked })
+  handleAddFav(restaurant){
+
+    this.setState({ favRestaurants: restaurant })
   }
 
-  handleFavouriteCheckbox(event) {
-    this.setState({ favRestaurants: {...this.state.favRestaurants,
-      fav: event.target.checked} });
-  }
 
   render() {
     return (
@@ -89,13 +90,13 @@ class RestaurantContainer extends Component {
             selectedRestaurant={ this.state.selectedRestaurant }/>
           <RestaurantDetail
             selectedRestaurant={ this.state.selectedRestaurant }
-            selectedFavourite={ this.state.selectedFavourite }/>
+            selectedFavourite={ this.state.selectedFavourite }
+            markFav={ this.handleAddFav }/>
           <FavouritesList
             favListChecked={ this.state.favListChecked }
             favRestaurants={ this.state.favRestaurants }
             onSelect={this.handleSelect}
-            selectedFavourite={ this.state.selectedFavourite }
-            onFavCheck={ this.handleFavouriteCheckbox}/>
+            selectedFavourite={ this.state.selectedFavourite }/>
         </div>
       );
   }
