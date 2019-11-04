@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { ZomatoKey } from '../keys.js'
 import RestaurantList from '../components/RestaurantList';
-import AppHeader from '../components/AppHeader'
+import AppHeader from '../components/AppHeader';
+import './RestaurantContainer.css'
 
 
 class RestaurantContainer extends Component {
@@ -54,7 +55,7 @@ class RestaurantContainer extends Component {
 
   render() {
     return (
-      <div className="restaurant-container">
+      <div className="restaurant-container" id="main-container">
       <AppHeader />
       <RestaurantList
       restaurants={ this.state.restaurants } />
