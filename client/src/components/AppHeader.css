@@ -1,3 +1,33 @@
 #page-header {
-background-color: cornsilk
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-color: #FFD5CB;
+  border-style: solid;
+  border-width: 3px;
+  border-color: red;
+  padding: 5px;
+  grid-gap: 1em;
+}
+
+#logo {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  grid-gap: 1em;
+  max-width: 300px
+}
+
+#logo > img {
+  border-style: solid;
+  border-color: red;
+  border-width: 2px;
+  max-width: 150px;
+  min-width: 100px;
+}
+
+#logo > h1 {
+  font-family: gill sans;
+  font-size: 1.8em;
+  color: red;
+  margin: none;
 }
