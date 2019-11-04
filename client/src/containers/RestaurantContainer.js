@@ -15,6 +15,7 @@ class RestaurantContainer extends Component {
     }
 
     this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
     this.apiCitySearch = this.apiCitySearch.bind(this);
     this.apiSearchCityId = this.apiSearchCityId.bind(this);
   }
@@ -22,6 +23,13 @@ class RestaurantContainer extends Component {
   handleSearchChange(value) {
     this.setState({ searchTerm: value })
   }
+
+  handleSelect(id) {
+    const restaurant = this.state.restaurants.find((restaurant) => {
+      return restaurant.restaurant.id === id
+    })
+    this.setState({ selectedRestaurant: restaurant })
+  };
 
   componentDidMount() {
     let lat;
