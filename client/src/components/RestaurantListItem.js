@@ -1,5 +1,6 @@
 import React from 'react';
 import RestaurantDetail from './RestaurantDetail';
+import './RestaurantListItem.css'
 
 const RestaurantListItem = ({
   name, cuisine, location, price_range, price_level }) => {
@@ -7,10 +8,10 @@ const RestaurantListItem = ({
   return (
     <div className="restaurant-list-item">
       <h3> { name } </h3>
-      <p>Cuisine: { cuisine }</p>
-      <p>Location: { location }</p>
-      <p>Price Range: { price_range },
-      Average Cost for Two: £ { price_level }</p>
+      <p>{ cuisine }</p>
+      <p>{ location }</p>
+      <p>{ price_range }</p>
+      <p>£{ price_level }</p>
     </div>
   );
 };
