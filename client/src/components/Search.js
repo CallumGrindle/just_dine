@@ -8,7 +8,7 @@ const Search = (props) => {
 
   return (
     <div className='search-box'>
-      <label for="search-box" >Search city:</label>
+      <label htmlFor="search-box" >Search city:</label>
       <input name="search"
         type='text'
         value={ props.searchTerm }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { ZomatoKey } from '../keys.js'
+import { ZomatoKey } from '../keys.js';
 import RestaurantList from '../components/RestaurantList';
-import ControlsContainer from '../containers/ControlsContainer.js'
+import ControlsContainer from '../containers/ControlsContainer.js';
 
   class RestaurantContainer extends Component {
     constructor(props) {
@@ -9,12 +9,12 @@ import ControlsContainer from '../containers/ControlsContainer.js'
       this.state = {
         restaurants: null,
         searchTerm: '',
-        selectedRestaurant: null,
-        cityDetails: null
+        selectedRestaurant: null
       }
 
       this.handleSearchChange = this.handleSearchChange.bind(this);
       this.apiCitySearch = this.apiCitySearch.bind(this);
+      this.apiSearchCityId = this.apiSearchCityId.bind(this);
     }
 
     handleSearchChange(value) {
@@ -28,7 +28,7 @@ import ControlsContainer from '../containers/ControlsContainer.js'
         navigator.geolocation.getCurrentPosition(position => {
           lat = position.coords.latitude;
           lon = position.coords.longitude;
-          (this.apiCall(lat, lon))
+          this.apiCall(lat, lon);
         })
       }
     }
@@ -54,32 +54,28 @@ import ControlsContainer from '../containers/ControlsContainer.js'
         }
       })
         .then(res => res.json())
-        .then(data => this.setState({ cityDetails: data['location_suggestions'][0] }))
+        .then(data => this.apiSearchCityId(data['location_suggestions'][0].id))
+        .catch(err => console.error(err));
+    }
+
+    apiSearchCityId(id) {
+      const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${id}&entity_type=city`
+      fetch(url, {
+        headers: {
+          'user-key': `${ZomatoKey}`
+        }
+      })
+        .then(res => res.json())
+        .then(data => this.setState({ restaurants: data }))
         .catch(err => console.error(err))
     }
 
-    // apiSearchCityId(id) {
-    //   const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityDetails}&entity_type=city`
-    //   fetch(url, {
-    //     headers: {
-    //       'user-key': `${ZomatoKey}`
-    //     }
-    //   })
-    //     .then(res => res.json())
-    //     .then(data => this.setState({ restaurants: data }))
-    //     .catch(err => console.error(err))
-    // }
-
   render() {
     return (
-        // <div className="restaurant-container">
-          <ControlsContainer
+        <ControlsContainer
           onSearchChange={ this.handleSearchChange }
           onSearchSubmit={ this.apiCitySearch }
           searchTerm={ this.state.searchTerm } />
-        //   <RestaurantList
-        //     restaurants={ this.state.restaurants } />
-        // </div>
       );
   }
 }
