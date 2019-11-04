@@ -31,7 +31,7 @@ db.restaurants.insertMany([
   },
 ]);
 
-db.fav_restaurants.insertMany([
+db.favourites.insertMany([
   {
     name: "Callum's Carrots",
     location: "Glasgow",

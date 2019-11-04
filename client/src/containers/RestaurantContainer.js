@@ -4,6 +4,7 @@ import RestaurantList from '../components/RestaurantList';
 import RestaurantDetail from '../components/RestaurantDetail';
 import AppHeader from '../components/AppHeader';
 import FavouritesList from '../components/FavouritesList';
+import Favourites from '../models/favourites.js'
 
 
 class RestaurantContainer extends Component {
@@ -31,6 +32,9 @@ class RestaurantContainer extends Component {
           (this.apiCall(lat, lon))
         })
       }
+
+      Favourites.get()
+        .then(favRestaurants => this.setState({ favRestaurants }));
     }
 
 
