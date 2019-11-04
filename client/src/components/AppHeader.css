@@ -1,6 +1,6 @@
 #page-header {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: auto 1fr 1fr;
   background-color: #FFD5CB;
   border-style: solid;
   border-width: 3px;
@@ -14,7 +14,10 @@
   grid-template-columns: auto 1fr;
   align-items: center;
   grid-gap: 1em;
-  max-width: 300px
+  max-width: 300px;
+  border-style: solid;
+  border-width: 0px 4px 0px 0px;
+  border-color: red;
 }
 
 #logo > img {
@@ -27,7 +30,25 @@
 
 #logo > h1 {
   font-family: gill sans;
-  font-size: auto;
+  font-size: 1.7em;
   color: red;
   margin: 0;
 }
+
+#search-box {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  border-style: solid;
+  border-width: 0px 4px 0px 0px;
+  border-color: red;
+  padding-right: 4px;
+}
+
+#search-box > h2 {
+  font-family: gill sans;
+  font-size: 2em;
+  color: red;
+  margin-bottom: 10px;
+  text-align: center;
+
+};
