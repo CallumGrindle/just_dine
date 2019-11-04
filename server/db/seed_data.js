@@ -1,7 +1,7 @@
 use just_dine;
 db.dropDatabase();
 
-db.restuarants.insertMany([
+db.restaurants.insertMany([
   {
     name: "Callum's Carrots",
     location: "Glasgow",
