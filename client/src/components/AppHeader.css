@@ -27,7 +27,7 @@
 
 #logo > h1 {
   font-family: gill sans;
-  font-size: 1.8em;
+  font-size: auto;
   color: red;
   margin: 0;
 }
