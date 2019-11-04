@@ -2,8 +2,14 @@ import React from 'react';
 
 
 const RestaurantListItem = ({
-  name, cuisine, location, price_range, price_level, id,
-  onSelect, selectedRestaurant }) => {
+    name,
+    cuisine,
+    location,
+    price_range,
+    price_level,
+    id,
+    onSelect,
+    selectedRestaurant }) => {
 
   return (
     <div className="restaurant-list-item">
