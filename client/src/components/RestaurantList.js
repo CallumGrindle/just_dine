@@ -11,6 +11,7 @@ const restaurantNodes = restaurants.map((restaurant, index) => {
       cuisine={ restaurant.restaurant.cuisines }
       location={ restaurant.restaurant.location.city }
       price_range={ restaurant.restaurant.price_range }
+      price_level={ restaurant.restaurant.average_cost_for_two }
     />
   );
 });
