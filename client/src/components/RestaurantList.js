@@ -5,6 +5,8 @@ const RestaurantList = ({ restaurants }) => {
 const restaurantNodes = restaurants.map((restaurant, index) => {
   return (
     <RestaurantListItem
+      key={ restaurant.restaurant.id }
+      id={ restaurant.restaurant.id }
       name={ restaurant.restaurant.name }
       cuisine={ restaurant.restaurant.cuisines }
       location={ restaurant.restaurant.location.city }
