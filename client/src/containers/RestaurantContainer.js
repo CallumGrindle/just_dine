@@ -74,9 +74,12 @@ class RestaurantContainer extends Component {
   }
 
   handleAddFav(restaurant){
-
-    this.setState({ favRestaurants: restaurant })
+    Favourites.post(restaurant)
+      .then(addRestaurant => this.setState({
+      favRestaurants: [...this.state.favRestaurants, addRestaurant]
+    }));
   }
+
 
 
   render() {
