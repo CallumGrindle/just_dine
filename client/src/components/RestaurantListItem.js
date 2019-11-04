@@ -1,12 +1,12 @@
 import React from 'react';
 
-const RestaurantListItem = (props) => {
+const RestaurantListItem = ({name}) => {
 
 
 
   return (
     <div className="restaurant-list-item">
-      <h2> Restaurant </h2>
+      <h2> { name } </h2>
     </div>
   );
 };
