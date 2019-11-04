@@ -22,11 +22,11 @@ const restaurantNodes = restaurants.map((restaurant, index) => {
   );
 });
 
-return (
-  <div className="restaurant-list">
+  return (
+    <div className="restaurant-list">
     { restaurantNodes }
-  </div>
-);
+    </div>
+  );
 };
 
 export default RestaurantList;

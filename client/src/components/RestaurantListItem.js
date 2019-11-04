@@ -1,5 +1,5 @@
 import React from 'react';
-import RestaurantDetail from './RestaurantDetail';
+
 
 const RestaurantListItem = ({
   name, cuisine, location, price_range, price_level, id,
