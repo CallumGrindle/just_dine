@@ -8,11 +8,13 @@ const Search = (props) => {
 
   return (
     <div className='search-box'>
-      <label for="search-box" >Search:</label>
+      <label for="search-box" >Search city:</label>
       <input name="search"
-      type='text'
-      value={ props.searchTerm }
-      onChange={ handleChange }></input>
+        type='text'
+        value={ props.searchTerm }
+        onChange={ handleChange }>
+      </input>
+      <button onClick={props.onSearchSubmit}>Go!</button>
     </div>
   )
 }

@@ -6,7 +6,8 @@ const ControlsContainer = (props) => {
   return (
     <Search
     onSearchChange={props.onSearchChange}
-    searchTerm={props.searchTerm}/>
+    searchTerm={props.searchTerm}
+    onSearchSubmit={props.onSearchSubmit}/>
   )
 }
 

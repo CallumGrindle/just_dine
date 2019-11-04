@@ -13,11 +13,12 @@ import ControlsContainer from '../containers/ControlsContainer.js'
         cityDetails: null
       }
 
-      this.handleSearchChange = this.handleSearchChange.bind(this)
+      this.handleSearchChange = this.handleSearchChange.bind(this);
+      this.apiCitySearch = this.apiCitySearch.bind(this);
     }
 
     handleSearchChange(value) {
-      this.setState({searchTerm: value})
+      this.setState({ searchTerm: value })
     }
 
     componentDidMount() {
@@ -44,17 +45,18 @@ import ControlsContainer from '../containers/ControlsContainer.js'
         .catch(err => console.error(err))
     }
 
-    // apiCitySearch() {
-    //   const url = `https://developers.zomato.com/api/v2.1/cities?q=${}`
-    //   fetch(url, {
-    //     headers: {
-    //       'user-key': `${ZomatoKey}`
-    //     }
-    //   })
-    //     .then(res => res.json())
-    //     .then(data => this.setState({ cityDetails: data['location_suggestions'][0] }))
-    //     .catch(err => console.error(err))
-    // }
+    apiCitySearch() {
+      const searchTerm = this.state.searchTerm
+      const url = `https://developers.zomato.com/api/v2.1/cities?q=${searchTerm}`
+      fetch(url, {
+        headers: {
+          'user-key': `${ZomatoKey}`
+        }
+      })
+        .then(res => res.json())
+        .then(data => this.setState({ cityDetails: data['location_suggestions'][0] }))
+        .catch(err => console.error(err))
+    }
 
     // apiSearchCityId(id) {
     //   const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityDetails}&entity_type=city`
@@ -72,8 +74,9 @@ import ControlsContainer from '../containers/ControlsContainer.js'
     return (
         // <div className="restaurant-container">
           <ControlsContainer
-          onSearchChange={this.handleSearchChange}
-          searchTerm={this.state.searchTerm} />
+          onSearchChange={ this.handleSearchChange }
+          onSearchSubmit={ this.apiCitySearch }
+          searchTerm={ this.state.searchTerm } />
         //   <RestaurantList
         //     restaurants={ this.state.restaurants } />
         // </div>
