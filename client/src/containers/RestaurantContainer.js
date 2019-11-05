@@ -80,8 +80,6 @@ class RestaurantContainer extends Component {
     }));
   }
 
-
-
   render() {
     return (
         <div className="restaurant-container">
