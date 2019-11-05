@@ -1,0 +1,15 @@
+.restaurant-list-item {
+  font-family: gill sans;
+  background-color: #EBEAF2;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  border-style: solid;
+  border-color: #FF0000;
+  border-width: 2px;
+  margin-bottom: 5px;
+  padding: 2px;
+}
+h3 {
+  margin-right: 3px;
+}
