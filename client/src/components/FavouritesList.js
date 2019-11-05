@@ -10,6 +10,7 @@ const FavouritesList = ({
         <RestaurantListItem
           key={ restaurant.restaurant.id }
           id={ restaurant.restaurant.id }
+          favId={ restaurant._id }
           name={ restaurant.restaurant.name }
           cuisine={ restaurant.restaurant.cuisines }
           location={ restaurant.restaurant.location.city }

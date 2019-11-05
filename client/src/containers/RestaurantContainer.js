@@ -17,14 +17,14 @@ class RestaurantContainer extends Component {
         searchTerm: "",
         selectedRestaurant: null,
         favRestaurants: [],
-        favListChecked: false,
-        selectedFavourite: null
+        favListChecked: false
       }
       this.handleSearchChange = this.handleSearchChange.bind(this);
       this.handleSelect = this.handleSelect.bind(this);
       this.apiCitySearch = this.apiCitySearch.bind(this);
       this.apiSearchCityId = this.apiSearchCityId.bind(this);
       this.handleAddFav = this.handleAddFav.bind(this);
+      this.handleDeleteFav = this.handleDeleteFav.bind(this);
       this.handleFavListSelect = this.handleFavListSelect.bind(this);
     }
 
@@ -83,11 +83,29 @@ class RestaurantContainer extends Component {
       this.setState({ favListChecked: true })
     }
 
-  handleAddFav(restaurant) {
-    Favourites.post(restaurant)
-      .then(addRestaurant => this.setState({
-      favRestaurants: [...this.state.favRestaurants, addRestaurant]
-    }))
+  handleFavSelector(restaurant) {
+    if (restaurant._id) {
+      return console.log("yes")
+    }
+  }
+
+  handleAddFav(newFaveRestaurant) {
+    if (!this.state.favRestaurants.filter(restaurant =>
+      restaurant.restaurant.id === newFaveRestaurant.restaurant.id).length) {
+        Favourites.post(newFaveRestaurant)
+        .then(addRestaurant => this.setState({
+          favRestaurants: [...this.state.favRestaurants, addRestaurant]
+        }))
+      }
+  }
+
+  handleDeleteFav(restaurant) {
+    const restaurantFromFaves = this.state.favRestaurants.find(currentRestaurant => {
+      return restaurant.restaurant.id === currentRestaurant.restaurant.id;
+    })
+    const restaurantId = restaurantFromFaves._id;
+    Favourites.delete(restaurantId)
+      .then(favRestaurants => this.setState({ favRestaurants }))
   }
 
   apiSearchCityId(id) {
@@ -119,7 +137,8 @@ class RestaurantContainer extends Component {
           <RestaurantDetail
             selectedRestaurant={ this.state.selectedRestaurant }
             selectedFavourite={ this.state.selectedFavourite }
-            markFav={ this.handleAddFav }/>
+            markFav={ this.handleAddFav }
+            deleteFav={ this.handleDeleteFav }/>
           <FavouritesList
             favListChecked={ this.state.favListChecked }
             favRestaurants={ this.state.favRestaurants }

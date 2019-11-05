@@ -17,13 +17,13 @@ const RestaurantListItem = ({
     }
 
   return (
-    <div onClick={ () => onSelect(id) }  className="restaurant-list-item">
+    <article onClick={ () => onSelect(id) }  className="restaurant-list-item">
       <h3> { name } </h3>
       <p>{ cuisine }</p>
       <p>{ location }</p>
       <p>{ price_range }</p>
       <p>£{ price_level }</p>
-    </div>
+    </article>
   );
 };
 
