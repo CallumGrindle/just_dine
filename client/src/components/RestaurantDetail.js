@@ -1,5 +1,6 @@
 import React from 'react';
 import ReviewListItem from './ReviewListItem';
+import './RestaurantDetail.css'
 
 const RestaurantDetail = ({
   selectedRestaurant, selectedFavourite, markFav, favourite }) => {
@@ -18,7 +19,7 @@ const RestaurantDetail = ({
       });
 
     return (
-      <div>
+      <div className="restaurant-detail">
         <h1>{selectedRestaurant.restaurant.name}</h1>
         <p> {selectedRestaurant.restaurant.location.locality} </p>
         <p> {selectedRestaurant.restaurant.location.address} </p>
