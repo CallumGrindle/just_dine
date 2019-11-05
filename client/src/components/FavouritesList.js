@@ -4,12 +4,13 @@ import RestaurantListItem from './RestaurantListItem';
 const FavouritesList = ({
   favListChecked, favRestaurants, selectedRestaurant,
   onSelect }) => {
-    // if (!favListChecked) return null;
+    if (!favListChecked) return null;
     const restaurantNodes = favRestaurants.map((restaurant, index) => {
       return (
         <RestaurantListItem
           key={ restaurant.restaurant.id }
           id={ restaurant.restaurant.id }
+          favId={ restaurant._id }
           name={ restaurant.restaurant.name }
           cuisine={ restaurant.restaurant.cuisines }
           location={ restaurant.restaurant.location.city }

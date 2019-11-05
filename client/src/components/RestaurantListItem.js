@@ -26,16 +26,13 @@ const RestaurantListItem = ({
     }
 
     return (
-      <div className="restaurant-list-item">
-      <h3> { name } </h3>
-      <p>{ cuisine }</p>
-      <p>{ location }</p>
-      <p>{ priceDisplay() }</p>
-      <p>{ currency }{ price_level }</p>
-      <button onClick={ () => onSelect(id) }>
-      More info...
-      </button>
-      </div>
+      <article onClick={ () => onSelect(id) }  className="restaurant-list-item">
+        <h3> { name } </h3>
+        <p>{ cuisine }</p>
+        <p>{ location }</p>
+        <p>{ priceDisplay() }</p>
+        <p>{ currency }{ price_level }</p>
+      </article>
     );
   };
 

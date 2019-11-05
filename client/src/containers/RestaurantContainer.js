@@ -29,6 +29,8 @@ class RestaurantContainer extends Component {
       this.handleAddFav = this.handleAddFav.bind(this);
       this.cuisineTypes = this.cuisineTypes.bind(this);
       this.handleCuisineSelect = this.handleCuisineSelect.bind(this);
+      this.handleDeleteFav = this.handleDeleteFav.bind(this);
+      this.handleFavListSelect = this.handleFavListSelect.bind(this);
     }
 
   componentDidMount() {
@@ -84,15 +86,33 @@ class RestaurantContainer extends Component {
     .catch(err => console.error(err));
   }
 
-  handleFavListSelect(event){
-    this.setState({ favListChecked: event.target.checked })
+  handleFavListSelect(){
+      this.setState({ favListChecked: true })
+    }
+
+  handleFavSelector(restaurant) {
+    if (restaurant._id) {
+      return console.log("yes")
+    }
   }
 
-  handleAddFav(restaurant) {
-    Favourites.post(restaurant)
-    .then(addRestaurant => this.setState({
-      favRestaurants: [...this.state.favRestaurants, addRestaurant]
-    }))
+  handleAddFav(newFaveRestaurant) {
+    if (!this.state.favRestaurants.filter(restaurant =>
+      restaurant.restaurant.id === newFaveRestaurant.restaurant.id).length) {
+        Favourites.post(newFaveRestaurant)
+        .then(addRestaurant => this.setState({
+          favRestaurants: [...this.state.favRestaurants, addRestaurant]
+        }))
+      }
+  }
+
+  handleDeleteFav(restaurant) {
+    const restaurantFromFaves = this.state.favRestaurants.find(currentRestaurant => {
+      return restaurant.restaurant.id === currentRestaurant.restaurant.id;
+    })
+    const restaurantId = restaurantFromFaves._id;
+    Favourites.delete(restaurantId)
+      .then(favRestaurants => this.setState({ favRestaurants }))
   }
 
   handleCuisineSelect(cuisine) {
@@ -132,10 +152,7 @@ class RestaurantContainer extends Component {
     }
 
     return (
-
-      
-
-      <div>
+        <div className="restaurant-container" id="main-container">
           <AppHeader
             onSearchChange={ this.handleSearchChange }
             onSearchSubmit={ this.apiCitySearch }
@@ -149,13 +166,13 @@ class RestaurantContainer extends Component {
               selectedRestaurant={ this.state.selectedRestaurant }
               selectedFavourite={ this.state.selectedFavourite }
               markFav={ this.handleAddFav }/>
-
-
+              deleteFav={ this.handleDeleteFav }/>
 
             <RestaurantList
               restaurants={ this.state.restaurants }
               onSelect={this.handleSelect}
               selectedRestaurant={ this.state.selectedRestaurant }/>
+              favListChecked={ this.state.favListChecked }
 
 
 
