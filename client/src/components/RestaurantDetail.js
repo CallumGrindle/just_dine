@@ -9,12 +9,13 @@ const RestaurantDetail = ({
         <p> {selectedRestaurant.restaurant.location.address} </p>
         <p>Tel: {selectedRestaurant.restaurant.phone_numbers} </p>
         <p>Hours: {selectedRestaurant.restaurant.timings} </p>
-        <button onClick={ () => markFav(selectedRestaurant) }>
+        <button class="fab fa-gratipay" onClick={ () => markFav(selectedRestaurant) }>
           Add to favourites
         </button>
         <button onClick={ () => deleteFav(selectedRestaurant) }>
           Delete from favourites
         </button>
+        <i class="fab fa-gratipay"></i>
       </div>
     )
 }
