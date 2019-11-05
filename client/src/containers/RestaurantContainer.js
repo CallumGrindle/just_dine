@@ -91,7 +91,6 @@ class RestaurantContainer extends Component {
       onSearchChange={ this.handleSearchChange }
       onSearchSubmit={ this.apiCitySearch }
       searchTerm={ this.state.searchTerm } />
-      <h1>Just Dine!</h1>
       <RestaurantList
         restaurants={ this.state.restaurants }
         onSelect={this.handleSelect}
