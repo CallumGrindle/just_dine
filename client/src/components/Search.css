@@ -1,0 +1,17 @@
+.search-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: red;
+  padding: 4px;
+  color: white;
+  font-family: gill sans;
+  align-items: center;
+}
+label {
+  margin-right: 10px;
+}
+
+button {
+  margin-left: 10px;
+}
