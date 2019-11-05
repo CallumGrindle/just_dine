@@ -17,6 +17,13 @@ const RestaurantList = ({ restaurants, onSelect }) => {
         onSelect={ onSelect }>
       </RestaurantListItem>
     );
+
+
+
+
+
+
+
   });
 
   return (
