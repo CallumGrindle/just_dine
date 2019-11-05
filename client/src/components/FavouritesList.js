@@ -13,6 +13,7 @@ const FavouritesList = ({
           name={ restaurant.restaurant.name }
           cuisine={ restaurant.restaurant.cuisines }
           location={ restaurant.restaurant.location.city }
+          currency={ restaurant.restaurant.currency }
           price_range={ restaurant.restaurant.price_range }
           price_level={ restaurant.restaurant.average_cost_for_two }
           onSelect={ onSelect }

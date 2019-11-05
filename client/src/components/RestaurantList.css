@@ -6,7 +6,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   border-width: 2px;
   margin-bottom: 5px;
-  padding: 2px;
+  padding: 2px 2px 2px 4px;
 }
 
 

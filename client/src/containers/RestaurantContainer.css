@@ -1,3 +1,10 @@
-#main-container {
-  /* background-color: #FFF7F5; */
+.loading-message {
+  font-family: gill sans;
+  font-size: 4em;
+  color: red;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: white;
+  border-style: solid;
+  padding: 10px
 }

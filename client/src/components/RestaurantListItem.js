@@ -6,6 +6,7 @@ const RestaurantListItem = ({
   name,
   cuisine,
   location,
+  currency,
   price_range,
   price_level,
   id,
@@ -19,7 +20,7 @@ const RestaurantListItem = ({
     function priceDisplay() {
       let string ="";
       for (let count=0; count<price_range; count++) {
-        string+='£'
+        string+=currency||'*'
       }
       return string
     }
@@ -30,7 +31,7 @@ const RestaurantListItem = ({
       <p>{ cuisine }</p>
       <p>{ location }</p>
       <p>{ priceDisplay() }</p>
-      <p>£{ price_level }</p>
+      <p>{ currency }{ price_level }</p>
       <button onClick={ () => onSelect(id) }>
       More info...
       </button>
