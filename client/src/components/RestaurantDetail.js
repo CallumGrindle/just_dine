@@ -1,9 +1,9 @@
 import React from 'react';
 
-const RestaurantDetail = (props) => {
-
+const RestaurantDetail = ({selectedRestaurant}) => {
+  if (!selectedRestaurant) return null;
   return (
-    <h1>This is details</h1>
+    <h1>{selectedRestaurant.restaurant.name}</h1>
   )
 }
 
