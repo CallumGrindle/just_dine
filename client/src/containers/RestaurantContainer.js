@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ZomatoKey } from '../keys.js';
 import RestaurantList from '../components/RestaurantList';
@@ -11,6 +11,7 @@ import './RestaurantContainer.css'
 
 
 class RestaurantContainer extends Component {
+
     constructor(props) {
       super(props);
       this.state = {
@@ -19,7 +20,8 @@ class RestaurantContainer extends Component {
         selectedRestaurant: null,
         favRestaurants: [],
         favListChecked: false,
-        loading: false
+        loading: false,
+        favourite: false
       }
       this.handleSearchChange = this.handleSearchChange.bind(this);
       this.handleSelect = this.handleSelect.bind(this);
@@ -28,8 +30,9 @@ class RestaurantContainer extends Component {
       this.handleAddFav = this.handleAddFav.bind(this);
       this.handleDeleteFav = this.handleDeleteFav.bind(this);
       this.handleFavListSelect = this.handleFavListSelect.bind(this);
+      this.handleCheckbox = this.handleCheckbox.bind(this);
     };
-  
+
 
   componentDidMount() {
     this.setState({loading: true})
@@ -56,6 +59,11 @@ class RestaurantContainer extends Component {
       return restaurant.restaurant.id === id
     })
     this.setState({ selectedRestaurant: restaurant })
+
+    if (this.state.favRestaurants.filter(favrestaurant =>
+      favrestaurant.restaurant.id === restaurant.restaurant.id).length) {
+    this.setState({ favourite: true })
+    }
   };
 
   apiCall(lat, lon) {
@@ -94,6 +102,16 @@ class RestaurantContainer extends Component {
     }
   }
 
+  handleCheckbox(restaurant) {
+    if (!this.state.favourite) {
+      this.setState({ favourite: true})
+      this.handleAddFav(restaurant)
+    } else {
+      this.setState({ favourite: false })
+      this.handleDeleteFav(restaurant)
+    }
+  }
+
   handleAddFav(newFaveRestaurant) {
     if (!this.state.favRestaurants.filter(restaurant =>
       restaurant.restaurant.id === newFaveRestaurant.restaurant.id).length) {
@@ -126,7 +144,6 @@ class RestaurantContainer extends Component {
   }
 
   render() {
-
     if (this.state.loading) {
       return (
         <h1 className="loading-message">Loading Restaurants...</h1>
@@ -140,21 +157,22 @@ class RestaurantContainer extends Component {
             onSearchSubmit={ this.apiCitySearch }
             searchTerm={ this.state.searchTerm }
             onSelectFavList={ this.handleFavListSelect } />
+          <RestaurantDetail
+            selectedRestaurant={ this.state.selectedRestaurant }
+            favourite={ this.state.favourite }
+            checkboxFav={ this.handleCheckbox }
+            markFav={ this.handleAddFav }
+            deleteFav={ this.handleDeleteFav }/>
           <RestaurantList
             favListChecked={ this.state.favListChecked }
             restaurants={ this.state.restaurants }
             onSelect={this.handleSelect}
             selectedRestaurant={ this.state.selectedRestaurant }/>
-          <RestaurantDetail
-            selectedRestaurant={ this.state.selectedRestaurant }
-            selectedFavourite={ this.state.selectedFavourite }
-            markFav={ this.handleAddFav }
-            deleteFav={ this.handleDeleteFav }/>
           <FavouritesList
             favListChecked={ this.state.favListChecked }
             favRestaurants={ this.state.favRestaurants }
-            onSelect={this.handleSelect}
-            selectedFavourite={ this.state.selectedFavourite }/>
+            onSelect={ this.handleSelect }
+            selectedRestaurant={ this.state.selectedRestaurant }/>
         </div>
       );
   }

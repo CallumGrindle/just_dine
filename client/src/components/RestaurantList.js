@@ -19,12 +19,6 @@ const RestaurantList = ({ restaurants, onSelect, favListChecked }) => {
       </RestaurantListItem>
     );
 
-
-
-
-
-
-
   });
 
   return (

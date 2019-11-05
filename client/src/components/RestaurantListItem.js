@@ -1,5 +1,4 @@
 import React from 'react';
-import RestaurantDetail from './RestaurantDetail';
 import './RestaurantListItem.css'
 
 const RestaurantListItem = ({
@@ -13,9 +12,6 @@ const RestaurantListItem = ({
   onSelect,
   selectedRestaurant }) => {
 
-    function handleSelect() {
-      onSelect(id);
-    }
 
     function priceDisplay() {
       let string ="";

@@ -1,9 +1,10 @@
 import React from 'react';
 import ReviewListItem from './ReviewListItem';
-import './RestaurantDetail.css'
+import './RestaurantDetail.css';
+import HeartCheckbox from 'react-heart-checkbox';
 
 const RestaurantDetail = ({
-  selectedRestaurant, favID, markFav, deleteFav }) => {
+  selectedRestaurant, favourite, markFav, deleteFav, checkboxFav }) => {
     if (!selectedRestaurant) return null;
 
     const reviewNodes = selectedRestaurant.restaurant.all_reviews.reviews
@@ -26,12 +27,12 @@ const RestaurantDetail = ({
         <p>Tel: {selectedRestaurant.restaurant.phone_numbers} </p>
         <img src={selectedRestaurant.restaurant.thumb} />
         <a href={selectedRestaurant.restaurant.menu_url}>View menu</a>
-        <button onClick={ () => markFav(selectedRestaurant) }>
-          Add to favourites
-        </button>
-        <button onClick={ () => deleteFav(selectedRestaurant) }>
-          Delete from favourites
-        </button>
+        <p>
+        <HeartCheckbox
+          checked={ favourite }
+          onClick={ () => checkboxFav(selectedRestaurant) } />
+        </p>
+  
 
         <ul>{ reviewNodes }</ul>
 
