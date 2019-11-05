@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from "react";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ZomatoKey } from '../keys.js';
 import RestaurantList from '../components/RestaurantList';
 import ControlsContainer from '../containers/ControlsContainer.js';
@@ -84,11 +85,11 @@ class RestaurantContainer extends Component {
 
     return (
       <div className="restaurant-container">
-      <ControlsContainer
-        onSearchChange={ this.handleSearchChange }
-        onSearchSubmit={ this.apiCitySearch }
-        searchTerm={ this.state.searchTerm } />
-      <AppHeader />
+
+      <AppHeader
+      onSearchChange={ this.handleSearchChange }
+      onSearchSubmit={ this.apiCitySearch }
+      searchTerm={ this.state.searchTerm } />
       <h1>Just Dine!</h1>
       <RestaurantList
         restaurants={ this.state.restaurants }
