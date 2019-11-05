@@ -26,8 +26,7 @@ const RestaurantList = ({ restaurants, onSelect }) => {
     <h3>Cuisine</h3>
     <h3>Location</h3>
     <h3>Price Range</h3>
-    <h3>Average cost for
-    2</h3>
+    <h3>Average cost for 2</h3>
     </header>
     { restaurantNodes }
     </div>
