@@ -3,14 +3,14 @@ import RestaurantDetail from './RestaurantDetail';
 import './RestaurantListItem.css'
 
 const RestaurantListItem = ({
-    name,
-    cuisine,
-    location,
-    price_range,
-    price_level,
-    id,
-    onSelect,
-    selectedRestaurant }) => {
+  name,
+  cuisine,
+  location,
+  price_range,
+  price_level,
+  id,
+  onSelect,
+  selectedRestaurant }) => {
 
     function handleSelect() {
       onSelect(id);
@@ -22,20 +22,20 @@ const RestaurantListItem = ({
         string+='£'
       }
       return string
-      }
+    }
 
-  return (
-    <div className="restaurant-list-item">
+    return (
+      <div className="restaurant-list-item">
       <h3> { name } </h3>
       <p>{ cuisine }</p>
       <p>{ location }</p>
       <p>{ priceDisplay() }</p>
       <p>£{ price_level }</p>
       <button onClick={ () => onSelect(id) }>
-        More info...
+      More info...
       </button>
-    </div>
-  );
-};
+      </div>
+    );
+  };
 
-export default RestaurantListItem;
+  export default RestaurantListItem;
