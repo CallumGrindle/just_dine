@@ -12,9 +12,9 @@ app.use(bodyParser.json());
 MongoClient.connect('mongodb://localhost:27017')
   .then((client) => {
     const db = client.db('just_dine');
-    const restaurantsCollection = db.collection('restaurants');
-    const restaurantsRouter = createRouter(restaurantsCollection);
-    app.use('/api/restaurants', restaurantsRouter);
+    const favouritesCollection = db.collection('favourites');
+    const favouritesRouter = createRouter(favouritesCollection);
+    app.use('/api/favourites', favouritesRouter);
   })
   .catch(console.err);
 
