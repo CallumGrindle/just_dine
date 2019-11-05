@@ -1,4 +1,5 @@
 import React from 'react'
+import './Search.css'
 
 const Search = (props) => {
 
@@ -8,13 +9,13 @@ const Search = (props) => {
 
   return (
     <div className='search-box'>
-      <label htmlFor="search-box" >Search city:</label>
+      <label htmlFor="search-box" >Search city:  </label>
       <input name="search"
         type='text'
         value={ props.searchTerm }
         onChange={ handleChange }>
       </input>
-      <button onClick={props.onSearchSubmit}>Go!</button>
+      <button onClick={props.onSearchSubmit}> Go!</button>
     </div>
   )
 }

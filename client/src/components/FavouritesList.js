@@ -13,6 +13,7 @@ const FavouritesList = ({
           name={ restaurant.restaurant.name }
           cuisine={ restaurant.restaurant.cuisines }
           location={ restaurant.restaurant.location.city }
+          currency={ restaurant.restaurant.currency }
           price_range={ restaurant.restaurant.price_range }
           price_level={ restaurant.restaurant.average_cost_for_two }
           onSelect={ onSelect }
@@ -23,6 +24,13 @@ const FavouritesList = ({
 
   return (
     <div className="restaurant-list">
+    <header className="list-header">
+    <h3>Favourites</h3>
+    <h3>Cuisine</h3>
+    <h3>Location</h3>
+    <h3>Price Range</h3>
+    <h3>Average cost for 2</h3>
+    </header>
     { restaurantNodes }
     </div>
   );
