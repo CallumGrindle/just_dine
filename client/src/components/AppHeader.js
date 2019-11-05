@@ -13,7 +13,8 @@ const AppHeader = (props) => {
       <ControlsContainer
       onSearchChange={ props.onSearchChange }
       onSearchSubmit={ props.onSearchSubmit }
-      searchTerm={ props.searchTerm } />
+      searchTerm={ props.searchTerm }
+      cuisineTypes={ props.cuisineTypes }/>
       </section>
       <section id="favourites-box">Take me to my favourite restautants</section>
     </header>

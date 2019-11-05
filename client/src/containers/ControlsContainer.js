@@ -7,10 +7,11 @@ const ControlsContainer = (props) => {
   return (
     <div>
       <Search
-      onSearchChange={props.onSearchChange}
-      searchTerm={props.searchTerm}
-      onSearchSubmit={props.onSearchSubmit}/>
-      <Filter />
+        onSearchChange={props.onSearchChange}
+        searchTerm={props.searchTerm}
+        onSearchSubmit={props.onSearchSubmit}/>
+      <Filter
+        cuisineTypes={props.cuisineTypes}/>
     </div>
   )
 }

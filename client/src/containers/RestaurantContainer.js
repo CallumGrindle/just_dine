@@ -25,6 +25,7 @@ class RestaurantContainer extends Component {
       this.apiCitySearch = this.apiCitySearch.bind(this);
       this.apiSearchCityId = this.apiSearchCityId.bind(this);
       this.handleAddFav = this.handleAddFav.bind(this);
+      this.cuisineTypes = this.cuisineTypes.bind(this);
     }
 
     componentDidMount() {
@@ -101,6 +102,13 @@ class RestaurantContainer extends Component {
     .catch(err => console.error(err))
   }
 
+  cuisineTypes() {
+    const cuisineTypes = new Set(this.state.restaurants.map((restaurant) => {
+      return restaurant.restaurant.cuisines
+    }))
+    return cuisineTypes;
+  }
+
   render() {
 
     return (
@@ -108,7 +116,8 @@ class RestaurantContainer extends Component {
           <AppHeader
             onSearchChange={ this.handleSearchChange }
             onSearchSubmit={ this.apiCitySearch }
-            searchTerm={ this.state.searchTerm } />
+            searchTerm={ this.state.searchTerm }
+            cuisineTypes={ this.cuisineTypes() }/>
             <h1>Just Dine!</h1>
           <RestaurantList
             restaurants={ this.state.restaurants }
