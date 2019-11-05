@@ -1,26 +1,46 @@
 import React, { Component, Fragment } from "react";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+// import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ZomatoKey } from '../keys.js';
 import RestaurantList from '../components/RestaurantList';
 import ControlsContainer from '../containers/ControlsContainer.js';
 import RestaurantDetail from '../components/RestaurantDetail';
 import AppHeader from '../components/AppHeader';
-import './RestaurantContainer.css'
+import FavouritesList from '../components/FavouritesList';
+import Favourites from '../models/favourites.js'
+
 
 class RestaurantContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      restaurants: [],
-      searchTerm: '',
-      selectedRestaurant: null
+    constructor(props) {
+      super(props);
+      this.state = {
+        restaurants: [],
+        searchTerm: null,
+        selectedRestaurant: null,
+        favRestaurants: [],
+        favListChecked: false,
+        selectedFavourite: null
+      }
+      this.handleSearchChange = this.handleSearchChange.bind(this);
+      this.handleSelect = this.handleSelect.bind(this);
+      this.apiCitySearch = this.apiCitySearch.bind(this);
+      this.apiSearchCityId = this.apiSearchCityId.bind(this);
+      this.handleAddFav = this.handleAddFav.bind(this);
     }
 
-    this.handleSearchChange = this.handleSearchChange.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-    this.apiCitySearch = this.apiCitySearch.bind(this);
-    this.apiSearchCityId = this.apiSearchCityId.bind(this);
-  }
+    componentDidMount() {
+      let lat;
+      let lon;
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          lat = position.coords.latitude;
+          lon = position.coords.longitude;
+          (this.apiCall(lat, lon))
+        })
+      }
+
+      Favourites.get()
+        .then(favRestaurants => this.setState({ favRestaurants }));
+    }
 
   handleSearchChange(value) {
     this.setState({ searchTerm: value })
@@ -32,18 +52,6 @@ class RestaurantContainer extends Component {
     })
     this.setState({ selectedRestaurant: restaurant })
   };
-
-  componentDidMount() {
-    let lat;
-    let lon;
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        lat = position.coords.latitude;
-        lon = position.coords.longitude;
-        this.apiCall(lat, lon);
-      })
-    }
-  }
 
   apiCall(lat, lon) {
     const url = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`
@@ -70,6 +78,17 @@ class RestaurantContainer extends Component {
     .catch(err => console.error(err));
   }
 
+    handleFavListSelect(event){
+      this.setState({ favListChecked: event.target.checked })
+    }
+
+  handleAddFav(restaurant) {
+    Favourites.post(restaurant)
+      .then(addRestaurant => this.setState({
+      favRestaurants: [...this.state.favRestaurants, addRestaurant]
+    }))
+  }
+
   apiSearchCityId(id) {
     const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${id}&entity_type=city`
     fetch(url, {
@@ -85,19 +104,27 @@ class RestaurantContainer extends Component {
   render() {
 
     return (
-      <div className="restaurant-container" id="main-container">
-
-      <AppHeader
-      onSearchChange={ this.handleSearchChange }
-      onSearchSubmit={ this.apiCitySearch }
-      searchTerm={ this.state.searchTerm } />
-      <RestaurantList
-        restaurants={ this.state.restaurants }
-        onSelect={this.handleSelect}
-        selectedRestaurant={ this.state.selectedRestaurant }/>
-      <RestaurantDetail selectedRestaurant={ this.state.selectedRestaurant }/>
-      </div>
-    );
+        <div className="restaurant-container" id="main-container">
+          <AppHeader
+            onSearchChange={ this.handleSearchChange }
+            onSearchSubmit={ this.apiCitySearch }
+            searchTerm={ this.state.searchTerm } />
+            <h1>Just Dine!</h1>
+          <RestaurantList
+            restaurants={ this.state.restaurants }
+            onSelect={this.handleSelect}
+            selectedRestaurant={ this.state.selectedRestaurant }/>
+          <RestaurantDetail
+            selectedRestaurant={ this.state.selectedRestaurant }
+            selectedFavourite={ this.state.selectedFavourite }
+            markFav={ this.handleAddFav }/>
+          <FavouritesList
+            favListChecked={ this.state.favListChecked }
+            favRestaurants={ this.state.favRestaurants }
+            onSelect={this.handleSelect}
+            selectedFavourite={ this.state.selectedFavourite }/>
+        </div>
+      );
   }
 }
 

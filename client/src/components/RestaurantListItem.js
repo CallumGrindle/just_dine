@@ -23,6 +23,9 @@ const RestaurantListItem = ({
       <p>{ location }</p>
       <p>{ price_range }</p>
       <p>£{ price_level }</p>
+      <button onClick={ () => onSelect(id) }>
+        More info...
+      </button>
     </div>
   );
 };

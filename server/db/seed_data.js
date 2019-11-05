@@ -30,3 +30,19 @@ db.restaurants.insertMany([
     priceRange: "££"
   },
 ]);
+
+db.favourites.insertMany([
+  {
+    name: "Callum's Carrots",
+    location: "Glasgow",
+    cuisine: "Vegan",
+    priceRange: "££££"
+  },
+
+  {
+    name: "Pammy's",
+    location: "Inverness",
+    cuisine: "Traditional Scottish",
+    priceRange: "£££"
+  }
+]);
