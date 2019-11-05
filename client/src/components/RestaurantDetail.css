@@ -1,0 +1,10 @@
+.restaurant-detail {
+  display: grid;
+  font-family: gill sans;
+  background-color: #EBEAF2;
+  border-style: solid;
+  border-color: #FF0000;
+  border-width: 4px;
+  margin-bottom: 5px;
+  padding: 2px;
+}

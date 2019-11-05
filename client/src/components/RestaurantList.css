@@ -6,7 +6,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   border-width: 2px;
   margin-bottom: 5px;
-  padding: 2px;
+  padding: 2px 2px 2px 4px;
 }
 
 
@@ -14,10 +14,10 @@
 .restaurant-list {
   display: grid;
   grid-template-columns: 1fr;
-  background-color: #FFF7F5;
   border-style: solid;
-  border-width: 0px 3px 3px 3px;
+  border-width: 3px;
   border-color: #FF0000;
   margin-top: 0;
   padding: 4px;
+  margin-bottom: 10px;
 }
