@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-// import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ZomatoKey } from '../keys.js';
 import RestaurantList from '../components/RestaurantList';
 import ControlsContainer from '../containers/ControlsContainer.js';
@@ -104,12 +104,12 @@ class RestaurantContainer extends Component {
   render() {
 
     return (
-        <div className="restaurant-container" id="main-container">
+      <Router>
+        <Fragment>
           <AppHeader
             onSearchChange={ this.handleSearchChange }
             onSearchSubmit={ this.apiCitySearch }
             searchTerm={ this.state.searchTerm } />
-            <h1>Just Dine!</h1>
           <RestaurantList
             restaurants={ this.state.restaurants }
             onSelect={this.handleSelect}
@@ -123,8 +123,9 @@ class RestaurantContainer extends Component {
             favRestaurants={ this.state.favRestaurants }
             onSelect={this.handleSelect}
             selectedFavourite={ this.state.selectedFavourite }/>
-        </div>
-      );
+        </Fragment>
+      </Router>
+    )
   }
 }
 
