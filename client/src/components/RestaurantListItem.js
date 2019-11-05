@@ -16,12 +16,20 @@ const RestaurantListItem = ({
       onSelect(id);
     }
 
+    function priceDisplay() {
+      let string ="";
+      for (let count=0; count<price_range; count++) {
+        string+='£'
+      }
+      return string
+      }
+
   return (
     <div className="restaurant-list-item">
       <h3> { name } </h3>
       <p>{ cuisine }</p>
       <p>{ location }</p>
-      <p>{ price_range }</p>
+      <p>{ priceDisplay() }</p>
       <p>£{ price_level }</p>
       <button onClick={ () => onSelect(id) }>
         More info...
