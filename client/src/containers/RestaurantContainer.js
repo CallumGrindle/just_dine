@@ -26,6 +26,7 @@ class RestaurantContainer extends Component {
       this.apiSearchCityId = this.apiSearchCityId.bind(this);
       this.handleAddFav = this.handleAddFav.bind(this);
       this.cuisineTypes = this.cuisineTypes.bind(this);
+      this.handleCuisineSelect = this.handleCuisineSelect.bind(this);
     }
 
     componentDidMount() {
@@ -90,6 +91,15 @@ class RestaurantContainer extends Component {
     }))
   }
 
+  handleCuisineSelect(cuisine) {
+    console.log(cuisine);
+    const filteredRestaurants = this.state.restaurants.filter((restaurant) => {
+      return restaurant.restaurant.cuisines === cuisine;
+    })
+    console.log(filteredRestaurants);
+    this.setState({ restaurants: filteredRestaurants })
+  }
+
   apiSearchCityId(id) {
     const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${id}&entity_type=city`
     fetch(url, {
@@ -117,7 +127,8 @@ class RestaurantContainer extends Component {
             onSearchChange={ this.handleSearchChange }
             onSearchSubmit={ this.apiCitySearch }
             searchTerm={ this.state.searchTerm }
-            cuisineTypes={ this.cuisineTypes() }/>
+            cuisineTypes={ this.cuisineTypes() }
+            onCuisineSelect={ this.handleCuisineSelect } />
             <h1>Just Dine!</h1>
           <RestaurantList
             restaurants={ this.state.restaurants }

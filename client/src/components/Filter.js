@@ -8,8 +8,12 @@ const Filter = (props) => {
     )
   });
 
+  function handleCuisineSelect(event) {
+    props.onCuisineSelect(event.target.value)
+  }
+
   return (
-    <select>
+    <select onChange={handleCuisineSelect}>
       {cuisineTypeNodes}
     </select>
   )
