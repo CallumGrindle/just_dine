@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { ZomatoKey } from '../keys.js';
 import RestaurantList from '../components/RestaurantList';
 import ControlsContainer from '../containers/ControlsContainer.js';
@@ -107,32 +107,34 @@ class RestaurantContainer extends Component {
 
       <Router>
         <Fragment>
+
           <AppHeader
             onSearchChange={ this.handleSearchChange }
             onSearchSubmit={ this.apiCitySearch }
             searchTerm={ this.state.searchTerm } />
 
-          <Router exact path='/restaurants'>
+          <Route exact path='/restaurant/:id/show'>
+            <RestaurantDetail
+            selectedRestaurant={ this.state.selectedRestaurant }
+            selectedFavourite={ this.state.selectedFavourite }
+            markFav={ this.handleAddFav }/>
+          </Route>
+
+          <Route exact path='/restaurants'>
             <RestaurantList
               restaurants={ this.state.restaurants }
               onSelect={this.handleSelect}
               selectedRestaurant={ this.state.selectedRestaurant }/>
-          </Router>
+          </Route>
 
-          <Router exact path='/restaurant/:id/show'>
-            <RestaurantDetail
-              selectedRestaurant={ this.state.selectedRestaurant }
-              selectedFavourite={ this.state.selectedFavourite }
-              markFav={ this.handleAddFav }/>
-          </Router>
-
-          <Router exact path='/favourites'>
+          <Route exact path='/favourites'>
             <FavouritesList
               favListChecked={ this.state.favListChecked }
               favRestaurants={ this.state.favRestaurants }
               onSelect={this.handleSelect}
               selectedFavourite={ this.state.selectedFavourite }/>
-          </Router>
+          </Route>
+
         </Fragment>
       </Router>
 
