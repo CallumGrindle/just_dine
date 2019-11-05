@@ -14,7 +14,7 @@ class RestaurantContainer extends Component {
       super(props);
       this.state = {
         restaurants: [],
-        searchTerm: null,
+        searchTerm: '',
         selectedRestaurant: null,
         favRestaurants: [],
         favListChecked: false,
@@ -104,27 +104,38 @@ class RestaurantContainer extends Component {
   render() {
 
     return (
+
       <Router>
         <Fragment>
           <AppHeader
             onSearchChange={ this.handleSearchChange }
             onSearchSubmit={ this.apiCitySearch }
             searchTerm={ this.state.searchTerm } />
-          <RestaurantList
-            restaurants={ this.state.restaurants }
-            onSelect={this.handleSelect}
-            selectedRestaurant={ this.state.selectedRestaurant }/>
-          <RestaurantDetail
-            selectedRestaurant={ this.state.selectedRestaurant }
-            selectedFavourite={ this.state.selectedFavourite }
-            markFav={ this.handleAddFav }/>
-          <FavouritesList
-            favListChecked={ this.state.favListChecked }
-            favRestaurants={ this.state.favRestaurants }
-            onSelect={this.handleSelect}
-            selectedFavourite={ this.state.selectedFavourite }/>
+
+          <Router exact path='/restaurants'>
+            <RestaurantList
+              restaurants={ this.state.restaurants }
+              onSelect={this.handleSelect}
+              selectedRestaurant={ this.state.selectedRestaurant }/>
+          </Router>
+
+          <Router exact path='/restaurant/:id/show'>
+            <RestaurantDetail
+              selectedRestaurant={ this.state.selectedRestaurant }
+              selectedFavourite={ this.state.selectedFavourite }
+              markFav={ this.handleAddFav }/>
+          </Router>
+
+          <Router exact path='/favourites'>
+            <FavouritesList
+              favListChecked={ this.state.favListChecked }
+              favRestaurants={ this.state.favRestaurants }
+              onSelect={this.handleSelect}
+              selectedFavourite={ this.state.selectedFavourite }/>
+          </Router>
         </Fragment>
       </Router>
+
     )
   }
 }
