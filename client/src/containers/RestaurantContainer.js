@@ -27,13 +27,10 @@ class RestaurantContainer extends Component {
       this.apiCitySearch = this.apiCitySearch.bind(this);
       this.apiSearchCityId = this.apiSearchCityId.bind(this);
       this.handleAddFav = this.handleAddFav.bind(this);
-    }
-    this.handleSearchChange = this.handleSearchChange.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-    this.apiCitySearch = this.apiCitySearch.bind(this);
-    this.apiSearchCityId = this.apiSearchCityId.bind(this);
-    this.handleAddFav = this.handleAddFav.bind(this);
-  }
+      this.handleDeleteFav = this.handleDeleteFav.bind(this);
+      this.handleFavListSelect = this.handleFavListSelect.bind(this);
+    };
+
 
   componentDidMount() {
     this.setState({loading: true})
@@ -88,15 +85,33 @@ class RestaurantContainer extends Component {
     .catch(err => console.error(err));
   }
 
-  handleFavListSelect(event){
-    this.setState({ favListChecked: event.target.checked })
+  handleFavListSelect(){
+      this.setState({ favListChecked: true })
+    }
+
+  handleFavSelector(restaurant) {
+    if (restaurant._id) {
+      return console.log("yes")
+    }
   }
 
-  handleAddFav(restaurant) {
-    Favourites.post(restaurant)
-    .then(addRestaurant => this.setState({
-      favRestaurants: [...this.state.favRestaurants, addRestaurant]
-    }))
+  handleAddFav(newFaveRestaurant) {
+    if (!this.state.favRestaurants.filter(restaurant =>
+      restaurant.restaurant.id === newFaveRestaurant.restaurant.id).length) {
+        Favourites.post(newFaveRestaurant)
+        .then(addRestaurant => this.setState({
+          favRestaurants: [...this.state.favRestaurants, addRestaurant]
+        }))
+      }
+  }
+
+  handleDeleteFav(restaurant) {
+    const restaurantFromFaves = this.state.favRestaurants.find(currentRestaurant => {
+      return restaurant.restaurant.id === currentRestaurant.restaurant.id;
+    })
+    const restaurantId = restaurantFromFaves._id;
+    Favourites.delete(restaurantId)
+      .then(favRestaurants => this.setState({ favRestaurants }))
   }
 
   apiSearchCityId(id) {
@@ -120,41 +135,29 @@ class RestaurantContainer extends Component {
     }
 
     return (
-
-      <Router>
-        <Fragment>
-
+        <div className="restaurant-container" id="main-container">
           <AppHeader
             onSearchChange={ this.handleSearchChange }
             onSearchSubmit={ this.apiCitySearch }
-            searchTerm={ this.state.searchTerm } />
-
-          <Route exact path='/restaurant/:id/show'>
-            <RestaurantDetail
+            searchTerm={ this.state.searchTerm }
+            onSelectFavList={ this.handleFavListSelect } />
+          <RestaurantList
+            favListChecked={ this.state.favListChecked }
+            restaurants={ this.state.restaurants }
+            onSelect={this.handleSelect}
+            selectedRestaurant={ this.state.selectedRestaurant }/>
+          <RestaurantDetail
             selectedRestaurant={ this.state.selectedRestaurant }
             selectedFavourite={ this.state.selectedFavourite }
-            markFav={ this.handleAddFav }/>
-          </Route>
-
-          <Route exact path='/restaurants'>
-            <RestaurantList
-              restaurants={ this.state.restaurants }
-              onSelect={this.handleSelect}
-              selectedRestaurant={ this.state.selectedRestaurant }/>
-          </Route>
-
-          <Route exact path='/favourites'>
-            <FavouritesList
-              favListChecked={ this.state.favListChecked }
-              favRestaurants={ this.state.favRestaurants }
-              onSelect={this.handleSelect}
-              selectedFavourite={ this.state.selectedFavourite }/>
-          </Route>
-
-        </Fragment>
-      </Router>
-
-    )
+            markFav={ this.handleAddFav }
+            deleteFav={ this.handleDeleteFav }/>
+          <FavouritesList
+            favListChecked={ this.state.favListChecked }
+            favRestaurants={ this.state.favRestaurants }
+            onSelect={this.handleSelect}
+            selectedFavourite={ this.state.selectedFavourite }/>
+        </div>
+      );
   }
 }
 

@@ -10,12 +10,14 @@ const AppHeader = (props) => {
       <section id="logo"><img src={logo} alt="Just Dine Logo"></img>
         <h1>Why eat in when you can dine out?</h1></section>
       <section id="search-box"><h2>Search for a restaurant</h2>
-      <ControlsContainer
-      onSearchChange={ props.onSearchChange }
-      onSearchSubmit={ props.onSearchSubmit }
-      searchTerm={ props.searchTerm } />
+        <ControlsContainer
+          onSearchChange={ props.onSearchChange }
+          onSearchSubmit={ props.onSearchSubmit }
+          searchTerm={ props.searchTerm }/>
       </section>
-      <section id="favourites-box"><h2>Take me to my favourite restaurants</h2></section>
+      <section onClick={ props.onSelectFavList } id="favourites-box">
+        Take me to my favourite restaurants
+      </section>
     </header>
   )
 }
