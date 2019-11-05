@@ -15,7 +15,7 @@ const AppHeader = (props) => {
       onSearchSubmit={ props.onSearchSubmit }
       searchTerm={ props.searchTerm } />
       </section>
-      <section id="favourites-box">Take me to my favourite restautants</section>
+      <section id="favourites-box"><h2>Take me to my favourite restaurants</h2></section>
     </header>
   )
 }
