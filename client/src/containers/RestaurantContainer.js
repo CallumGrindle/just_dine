@@ -14,7 +14,7 @@ class RestaurantContainer extends Component {
       super(props);
       this.state = {
         restaurants: [],
-        searchTerm: null,
+        searchTerm: "",
         selectedRestaurant: null,
         favRestaurants: [],
         favListChecked: false,
@@ -25,6 +25,7 @@ class RestaurantContainer extends Component {
       this.apiCitySearch = this.apiCitySearch.bind(this);
       this.apiSearchCityId = this.apiSearchCityId.bind(this);
       this.handleAddFav = this.handleAddFav.bind(this);
+      this.handleFavListSelect = this.handleFavListSelect.bind(this);
     }
 
     componentDidMount() {
@@ -78,8 +79,8 @@ class RestaurantContainer extends Component {
     .catch(err => console.error(err));
   }
 
-    handleFavListSelect(event){
-      this.setState({ favListChecked: event.target.checked })
+  handleFavListSelect(){
+      this.setState({ favListChecked: true })
     }
 
   handleAddFav(restaurant) {
@@ -108,9 +109,10 @@ class RestaurantContainer extends Component {
           <AppHeader
             onSearchChange={ this.handleSearchChange }
             onSearchSubmit={ this.apiCitySearch }
-            searchTerm={ this.state.searchTerm } />
-            <h1>Just Dine!</h1>
+            searchTerm={ this.state.searchTerm }
+            onSelectFavList={ this.handleFavListSelect } />
           <RestaurantList
+            favListChecked={ this.state.favListChecked }
             restaurants={ this.state.restaurants }
             onSelect={this.handleSelect}
             selectedRestaurant={ this.state.selectedRestaurant }/>

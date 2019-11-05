@@ -4,7 +4,7 @@ import RestaurantListItem from './RestaurantListItem';
 const FavouritesList = ({
   favListChecked, favRestaurants, selectedRestaurant,
   onSelect }) => {
-    // if (!favListChecked) return null;
+    if (!favListChecked) return null;
     const restaurantNodes = favRestaurants.map((restaurant, index) => {
       return (
         <RestaurantListItem
