@@ -26,7 +26,8 @@ const RestaurantDetail = ({
         <p>Hours: {selectedRestaurant.restaurant.timings} </p>
         <p>Tel: {selectedRestaurant.restaurant.phone_numbers} </p>
         <img src={selectedRestaurant.restaurant.thumb} />
-        <a href={selectedRestaurant.restaurant.menu_url}>View menu</a>
+        <a href={selectedRestaurant.restaurant.menu_url}>View Menu</a>
+        <a href="mailto:booking@restaurant.com?Subject=Request Booking%20" target="_top">Request Booking</a>
 
         <section>
         <h2>{favourite ? '' : 'add to my favourites'}</h2>
