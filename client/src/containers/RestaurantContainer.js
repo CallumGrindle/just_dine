@@ -19,6 +19,7 @@ class RestaurantContainer extends Component {
         filteredRestaurants: [],
         showFilteredRestaurants: false,
         searchTerm: '',
+        nameFilter: '',
         selectedRestaurant: null,
         favRestaurants: [],
         favListChecked: false,
@@ -34,6 +35,7 @@ class RestaurantContainer extends Component {
       this.handleCuisineSelect = this.handleCuisineSelect.bind(this);
       this.handleDeleteFav = this.handleDeleteFav.bind(this);
       this.handleFavListSelect = this.handleFavListSelect.bind(this);
+      this.handleNameFilter = this.handleNameFilter.bind(this);
     }
 
   componentDidMount() {
@@ -149,14 +151,16 @@ class RestaurantContainer extends Component {
     return cuisineTypes;
   }
 
-  render() {
+  handleNameFilter(searchTerm) {
+    this.setState({ nameFilter: searchTerm })
+  }
 
+  render() {
     if (this.state.loading) {
       return (
         <h1 className="loading-message">Loading Restaurants...</h1>
       )
     }
-
     return (
         <div className="restaurant-container" id="main-container">
           <AppHeader
@@ -164,7 +168,9 @@ class RestaurantContainer extends Component {
             onSearchSubmit={ this.apiCitySearch }
             searchTerm={ this.state.searchTerm }
             cuisineTypes={ this.cuisineTypes() }
-            onCuisineSelect={ this.handleCuisineSelect } />
+            onCuisineSelect={ this.handleCuisineSelect }
+            nameFilter={ this.nameFilter }
+            onNameFilterInput={ this.handleNameFilter }/>
 
           <RestaurantDetail
             selectedRestaurant={ this.state.selectedRestaurant }
