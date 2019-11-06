@@ -131,11 +131,13 @@ class RestaurantContainer extends Component {
   }
 
   handleCuisineSelect(cuisine) {
-    console.log(cuisine);
+    if (cuisine === 'Show all') {
+      this.setState({ showFilteredRestaurants: false });
+      return;
+    }
     const filteredRestaurants = this.state.restaurants.filter((restaurant) => {
       return restaurant.restaurant.cuisines === cuisine;
-    })
-    console.log(filteredRestaurants);
+    });
     this.setState({ filteredRestaurants: filteredRestaurants, showFilteredRestaurants: true })
   }
 
