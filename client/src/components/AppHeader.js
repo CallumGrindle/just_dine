@@ -18,7 +18,8 @@ const AppHeader = (props) => {
           onCuisineSelect={ props.onCuisineSelect }
           nameFilter={ props.nameFilter }
           onNameFilterInput={ props.onNameFilterInput }
-          onFilterTypeSelect={ props.onFilterTypeSelect }/>
+          onFilterTypeSelect={ props.onFilterTypeSelect }
+          filterType={ props.filterType }/>
       </section>
       <section onClick={ props.onSelectFavList } id="favourites-box">
         Take me to my favourite restaurants

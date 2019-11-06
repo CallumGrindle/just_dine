@@ -7,7 +7,10 @@ const NameFilter = (props) => {
   }
 
   return (
-    <input onChange={ handleInput } type='text' value={props.nameFilter}/>
+    <div>
+      <label for='select'>Find a restaurant</label>
+      <input className='select' onChange={ handleInput } type='text' value={props.nameFilter}/>
+    </div>
   )
 }
 

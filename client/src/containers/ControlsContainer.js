@@ -6,15 +6,30 @@ import FilterTypeSelect from '../components/FilterTypeSelect.js'
 
 const ControlsContainer = (props) => {
 
+  const filterType = () => {
+    if (props.filterType === 'Cuisine') {
+    return (
+      <Filter
+        cuisineTypes={ props.cuisineTypes }
+        onCuisineSelect={ props.onCuisineSelect }/>
+      )
+    }
+    else if (props.filterType === 'Name') {
+      return (
+      <NameFilter
+        nameFilter={ props.nameFilter }
+        onNameFilterInput={ props.onNameFilterInput }/>
+      )
+    }
+  }
 
-
+  // <FilterTypeSelect onFilterTypeSelect={ props.onFilterTypeSelect }/>
   return (
     <div>
       <Search
         onSearchChange={ props.onSearchChange }
         searchTerm={ props.searchTerm }
         onSearchSubmit={ props.onSearchSubmit }/>
-      <FilterTypeSelect onFilterTypeSelect={ props.onFilterTypeSelect }/>
       <Filter
         cuisineTypes={ props.cuisineTypes }
         onCuisineSelect={ props.onCuisineSelect }/>

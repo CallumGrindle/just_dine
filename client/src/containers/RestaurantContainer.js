@@ -184,7 +184,8 @@ class RestaurantContainer extends Component {
             onCuisineSelect={ this.handleCuisineSelect }
             nameFilter={ this.nameFilter }
             onNameFilterInput={ this.handleNameFilter }
-            onFilterTypeSelect={ this.handleFilterTypeChange }/>
+            onFilterTypeSelect={ this.handleFilterTypeChange }
+            filterType={ this.state.filterType }/>
 
           <RestaurantDetail
             selectedRestaurant={ this.state.selectedRestaurant }
