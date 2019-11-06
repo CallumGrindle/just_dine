@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { BrowserRouter as Router, Route, Link, useParams } from 'react-router-dom';
 import { ZomatoKey } from '../keys.js';
 import RestaurantList from '../components/RestaurantList';
+import FilteredRestaurantList from '../components/FilteredRestaurantsList.js';
 import ControlsContainer from '../containers/ControlsContainer.js';
 import RestaurantDetail from '../components/RestaurantDetail';
 import AppHeader from '../components/AppHeader';
@@ -15,6 +16,8 @@ class RestaurantContainer extends Component {
       super(props);
       this.state = {
         restaurants: [],
+        filteredRestaurants: [],
+        showFilteredRestaurants: false,
         searchTerm: '',
         selectedRestaurant: null,
         favRestaurants: [],
@@ -133,7 +136,7 @@ class RestaurantContainer extends Component {
       return restaurant.restaurant.cuisines === cuisine;
     })
     console.log(filteredRestaurants);
-    this.setState({ restaurants: filteredRestaurants })
+    this.setState({ filteredRestaurants: filteredRestaurants, showFilteredRestaurants: true })
   }
 
   cuisineTypes() {
@@ -169,8 +172,16 @@ class RestaurantContainer extends Component {
           <RestaurantList
             restaurants={ this.state.restaurants }
             onSelect={this.handleSelect}
-            selectedRestaurant={ this.state.selectedRestaurant }/>
             favListChecked={ this.state.favListChecked }
+            selectedRestaurant={ this.state.selectedRestaurant }
+            showFilteredRestaurants={ this.state.showFilteredRestaurants }/>
+
+          <FilteredRestaurantList
+            restaurants={ this.state.filteredRestaurants }
+            onSelect={this.handleSelect}
+            favListChecked={ this.state.favListChecked }
+            selectedRestaurant={ this.state.selectedRestaurant }
+            showFilteredRestaurants={ this.state.showFilteredRestaurants }/>
 
           <FavouritesList
             restaurants= {  this.state.restaurants }

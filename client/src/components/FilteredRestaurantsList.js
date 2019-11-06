@@ -1,10 +1,9 @@
-import React from 'react';
+import React from 'react'
 import RestaurantListItem from './RestaurantListItem';
 import './RestaurantList.css'
 
 const RestaurantList = ({ restaurants, onSelect, favListChecked, showFilteredRestaurants }) => {
-  if (favListChecked) return null;
-  if (showFilteredRestaurants) return null;
+  if (!showFilteredRestaurants) return null;
   const restaurantNodes = restaurants.map((restaurant, index) => {
     return (
       <RestaurantListItem
