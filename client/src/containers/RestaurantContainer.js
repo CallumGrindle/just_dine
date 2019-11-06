@@ -160,9 +160,7 @@ class RestaurantContainer extends Component {
           <RestaurantDetail
             selectedRestaurant={ this.state.selectedRestaurant }
             favourite={ this.state.favourite }
-            checkboxFav={ this.handleCheckbox }
-            markFav={ this.handleAddFav }
-            deleteFav={ this.handleDeleteFav }/>
+            checkboxFav={ this.handleCheckbox }/>
           <RestaurantList
             favListChecked={ this.state.favListChecked }
             restaurants={ this.state.restaurants }

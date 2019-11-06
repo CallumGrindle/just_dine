@@ -10,7 +10,7 @@ const RestaurantListItem = ({
   price_level,
   id,
   onSelect,
-  selectedRestaurant }) => {
+  selectedRestaurant}) => {
 
 
     function priceDisplay() {

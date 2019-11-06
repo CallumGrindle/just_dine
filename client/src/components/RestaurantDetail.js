@@ -4,7 +4,7 @@ import './RestaurantDetail.css';
 import HeartCheckbox from 'react-heart-checkbox';
 
 const RestaurantDetail = ({
-  selectedRestaurant, favourite, markFav, deleteFav, checkboxFav }) => {
+  selectedRestaurant, favourite, checkboxFav }) => {
     if (!selectedRestaurant) return null;
 
     const reviewNodes = selectedRestaurant.restaurant.all_reviews.reviews
@@ -27,16 +27,15 @@ const RestaurantDetail = ({
         <p>Tel: {selectedRestaurant.restaurant.phone_numbers} </p>
         <img src={selectedRestaurant.restaurant.thumb} />
         <a href={selectedRestaurant.restaurant.menu_url}>View menu</a>
-        <p>
+
+        <section>
+        <h2>{favourite ? '' : 'add to my favourites'}</h2>
         <HeartCheckbox
           checked={ favourite }
           onClick={ () => checkboxFav(selectedRestaurant) } />
-        </p>
-  
+        </section>
 
-        <ul>{ reviewNodes }</ul>
-
-
+        <ul> { reviewNodes } </ul>
 
       </div>
     )
