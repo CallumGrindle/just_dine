@@ -115,15 +115,6 @@ class RestaurantContainer extends Component {
       .then(favRestaurants => this.setState({ favRestaurants }))
   }
 
-  handleCuisineSelect(cuisine) {
-    console.log(cuisine);
-    const filteredRestaurants = this.state.restaurants.filter((restaurant) => {
-      return restaurant.restaurant.cuisines === cuisine;
-    })
-    console.log(filteredRestaurants);
-    this.setState({ restaurants: filteredRestaurants })
-  }
-
   apiSearchCityId(id) {
     const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${id}&entity_type=city`
     fetch(url, {
@@ -134,6 +125,15 @@ class RestaurantContainer extends Component {
     .then(res => res.json())
     .then(data => this.setState({ restaurants: data.restaurants }))
     .catch(err => console.error(err))
+  }
+
+  handleCuisineSelect(cuisine) {
+    console.log(cuisine);
+    const filteredRestaurants = this.state.restaurants.filter((restaurant) => {
+      return restaurant.restaurant.cuisines === cuisine;
+    })
+    console.log(filteredRestaurants);
+    this.setState({ restaurants: filteredRestaurants })
   }
 
   cuisineTypes() {
@@ -160,29 +160,24 @@ class RestaurantContainer extends Component {
             cuisineTypes={ this.cuisineTypes() }
             onCuisineSelect={ this.handleCuisineSelect } />
 
+          <RestaurantDetail
+            selectedRestaurant={ this.state.selectedRestaurant }
+            selectedFavourite={ this.state.selectedFavourite }
+            markFav={ this.handleAddFav }/>
+            deleteFav={ this.handleDeleteFav }/>
 
+          <RestaurantList
+            restaurants={ this.state.restaurants }
+            onSelect={this.handleSelect}
+            selectedRestaurant={ this.state.selectedRestaurant }/>
+            favListChecked={ this.state.favListChecked }
 
-            <RestaurantDetail
-              selectedRestaurant={ this.state.selectedRestaurant }
-              selectedFavourite={ this.state.selectedFavourite }
-              markFav={ this.handleAddFav }/>
-              deleteFav={ this.handleDeleteFav }/>
-
-            <RestaurantList
-              restaurants={ this.state.restaurants }
-              onSelect={this.handleSelect}
-              selectedRestaurant={ this.state.selectedRestaurant }/>
-              favListChecked={ this.state.favListChecked }
-
-
-
-            <FavouritesList
-              restaurants= {  this.state.restaurants }
-              favListChecked={ this.state.favListChecked }
-              favRestaurants={ this.state.favRestaurants }
-              onSelect={this.handleSelect}
-              selectedFavourite={ this.state.selectedFavourite }/>
-
+          <FavouritesList
+            restaurants= {  this.state.restaurants }
+            favListChecked={ this.state.favListChecked }
+            favRestaurants={ this.state.favRestaurants }
+            onSelect={this.handleSelect}
+            selectedFavourite={ this.state.selectedFavourite }/>
       </div>
     )
   }

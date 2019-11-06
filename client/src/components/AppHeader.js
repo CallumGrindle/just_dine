@@ -16,7 +16,6 @@ const AppHeader = (props) => {
         searchTerm={ props.searchTerm }
         cuisineTypes={ props.cuisineTypes }
         onCuisineSelect={ props.onCuisineSelect }/>
-
       </section>
       <section onClick={ props.onSelectFavList } id="favourites-box">
         Take me to my favourite restaurants

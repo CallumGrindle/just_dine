@@ -17,7 +17,6 @@ const Filter = (props) => {
       {cuisineTypeNodes}
     </select>
   )
-
 }
 
 export default Filter
