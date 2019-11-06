@@ -11,9 +11,12 @@ const AppHeader = (props) => {
         <h1>Why eat in when you can dine out?</h1></section>
       <section id="search-box"><h2>Search for a restaurant</h2>
         <ControlsContainer
-          onSearchChange={ props.onSearchChange }
-          onSearchSubmit={ props.onSearchSubmit }
-          searchTerm={ props.searchTerm }/>
+        onSearchChange={ props.onSearchChange }
+        onSearchSubmit={ props.onSearchSubmit }
+        searchTerm={ props.searchTerm }
+        cuisineTypes={ props.cuisineTypes }
+        onCuisineSelect={ props.onCuisineSelect }/>
+
       </section>
       <section onClick={ props.onSelectFavList } id="favourites-box">
         Take me to my favourite restaurants

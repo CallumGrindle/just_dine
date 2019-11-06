@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-// import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React, { Component, Fragment } from "react";
+import { BrowserRouter as Router, Route, Link, useParams } from 'react-router-dom';
 import { ZomatoKey } from '../keys.js';
 import RestaurantList from '../components/RestaurantList';
 import ControlsContainer from '../containers/ControlsContainer.js';
@@ -16,7 +16,7 @@ class RestaurantContainer extends Component {
       super(props);
       this.state = {
         restaurants: [],
-        searchTerm: "",
+        searchTerm: '',
         selectedRestaurant: null,
         favRestaurants: [],
         favListChecked: false,
@@ -28,6 +28,8 @@ class RestaurantContainer extends Component {
       this.apiCitySearch = this.apiCitySearch.bind(this);
       this.apiSearchCityId = this.apiSearchCityId.bind(this);
       this.handleAddFav = this.handleAddFav.bind(this);
+      this.cuisineTypes = this.cuisineTypes.bind(this);
+      this.handleCuisineSelect = this.handleCuisineSelect.bind(this);
       this.handleDeleteFav = this.handleDeleteFav.bind(this);
       this.handleFavListSelect = this.handleFavListSelect.bind(this);
       this.handleCheckbox = this.handleCheckbox.bind(this);
@@ -131,6 +133,15 @@ class RestaurantContainer extends Component {
       .then(favRestaurants => this.setState({ favRestaurants }))
   }
 
+  handleCuisineSelect(cuisine) {
+    console.log(cuisine);
+    const filteredRestaurants = this.state.restaurants.filter((restaurant) => {
+      return restaurant.restaurant.cuisines === cuisine;
+    })
+    console.log(filteredRestaurants);
+    this.setState({ restaurants: filteredRestaurants })
+  }
+
   apiSearchCityId(id) {
     const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${id}&entity_type=city`
     fetch(url, {
@@ -141,6 +152,13 @@ class RestaurantContainer extends Component {
     .then(res => res.json())
     .then(data => this.setState({ restaurants: data.restaurants }))
     .catch(err => console.error(err))
+  }
+
+  cuisineTypes() {
+    const cuisineTypes = new Set(this.state.restaurants.map((restaurant) => {
+      return restaurant.restaurant.cuisines
+    }))
+    return cuisineTypes;
   }
 
   render() {
@@ -156,6 +174,8 @@ class RestaurantContainer extends Component {
             onSearchChange={ this.handleSearchChange }
             onSearchSubmit={ this.apiCitySearch }
             searchTerm={ this.state.searchTerm }
+            cuisineTypes={ this.cuisineTypes() }
+            onCuisineSelect={ this.handleCuisineSelect }
             onSelectFavList={ this.handleFavListSelect } />
           <RestaurantDetail
             selectedRestaurant={ this.state.selectedRestaurant }
