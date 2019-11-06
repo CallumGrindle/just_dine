@@ -138,7 +138,8 @@ class RestaurantContainer extends Component {
     const filteredRestaurants = this.state.restaurants.filter((restaurant) => {
       return restaurant.restaurant.cuisines === cuisine;
     });
-    this.setState({ filteredRestaurants: filteredRestaurants, showFilteredRestaurants: true })
+    this.setState({ filteredRestaurants: filteredRestaurants, showFilteredRestaurants: true,
+       selectedRestaurant: null })
   }
 
   cuisineTypes() {
