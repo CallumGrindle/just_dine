@@ -30,8 +30,8 @@ const ControlsContainer = (props) => {
         onSearchChange={ props.onSearchChange }
         searchTerm={ props.searchTerm }
         onSearchSubmit={ props.onSearchSubmit }/>
-        
-      <FilterTypeSelect onFilterTypeSelect={ props.onFilterTypeSelect }/>
+
+      <div className="filter-options">Filter here: </div><FilterTypeSelect onFilterTypeSelect={ props.onFilterTypeSelect }/>
 
       {filterType()}
     </div>

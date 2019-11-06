@@ -1,3 +1,12 @@
 #search-items {
   text-align: center;
+  background-color: red;
+  padding-top: 10px
+}
+
+.filter-options {
+  display:inline-flex;
+  font-family: gill sans;
+  color: white;
+  margin: 5px;
 }

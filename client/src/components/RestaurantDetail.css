@@ -56,3 +56,32 @@
   list-style-type: none;
   padding: 0;
 }
+
+.box-section {
+  background-color: red;
+  margin-bottom: 5px;
+  padding: 5px;
+  color: white;
+}
+
+a {
+  font-family: gill sans;
+  font-size: 2em;
+  color: white;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: red;
+  padding: 15px;
+  margin: 10px 10px;
+  vertical-align: center;
+  border-style: groove;
+  border-width: 2px;
+  border-color: black;
+  border-radius: 20px;
+  cursor: url(/just-dine_icon.png), auto;
+  text-decoration: none;
+}
+img {
+  max-width: 320px;
+  min-width: 320px
+}
