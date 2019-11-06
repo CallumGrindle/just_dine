@@ -1,11 +1,12 @@
 import React from 'react';
 import Search from '../components/Search.js';
 import Filter from '../components/Filter.js'
+import './ControlsContainer.css'
 
 const ControlsContainer = (props) => {
 
   return (
-    <div>
+    <div id="search-items">
       <Search
         onSearchChange={ props.onSearchChange }
         searchTerm={ props.searchTerm }

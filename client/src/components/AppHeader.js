@@ -18,8 +18,8 @@ const AppHeader = (props) => {
         onCuisineSelect={ props.onCuisineSelect }/>
 
       </section>
-      <section onClick={ props.onSelectFavList } id="favourites-box">
-        Take me to my favourite restaurants
+      <section id="favourites-button" onClick={ props.onSelectFavList } id="favourites-box">
+        <h2>Click here for your favourite restaurants</h2>
       </section>
     </header>
   )
