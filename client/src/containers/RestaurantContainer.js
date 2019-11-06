@@ -12,6 +12,7 @@ import './RestaurantContainer.css'
 
 
 class RestaurantContainer extends Component {
+
     constructor(props) {
       super(props);
       this.state = {
@@ -25,7 +26,9 @@ class RestaurantContainer extends Component {
         favListChecked: false,
         selectedFavourite: null,
         loading: false,
-        filterType: null
+        filterType: null,
+        loading: false,
+        favourite: false
       }
       this.handleSearchChange = this.handleSearchChange.bind(this);
       this.handleSelect = this.handleSelect.bind(this);
@@ -38,6 +41,7 @@ class RestaurantContainer extends Component {
       this.handleFavListSelect = this.handleFavListSelect.bind(this);
       this.handleNameFilter = this.handleNameFilter.bind(this);
       this.handleFilterTypeChange = this.handleFilterTypeChange.bind(this);
+      this.handleCheckbox = this.handleCheckbox.bind(this);
     }
 
   componentDidMount() {
@@ -65,6 +69,11 @@ class RestaurantContainer extends Component {
       return restaurant.restaurant.id === id
     })
     this.setState({ selectedRestaurant: restaurant })
+
+    if (this.state.favRestaurants.filter(favrestaurant =>
+      favrestaurant.restaurant.id === restaurant.restaurant.id).length) {
+    this.setState({ favourite: true })
+    }
   };
 
   apiCall(lat, lon) {
@@ -100,6 +109,16 @@ class RestaurantContainer extends Component {
   handleFavSelector(restaurant) {
     if (restaurant._id) {
       return console.log("yes")
+    }
+  }
+
+  handleCheckbox(restaurant) {
+    if (!this.state.favourite) {
+      this.setState({ favourite: true})
+      this.handleAddFav(restaurant)
+    } else {
+      this.setState({ favourite: false })
+      this.handleDeleteFav(restaurant)
     }
   }
 
@@ -185,13 +204,16 @@ class RestaurantContainer extends Component {
             nameFilter={ this.nameFilter }
             onNameFilterInput={ this.handleNameFilter }
             onFilterTypeSelect={ this.handleFilterTypeChange }
-            filterType={ this.state.filterType }/>
+            filterType={ this.state.filterType }
+            onSelectFavList={ this.handleFavListSelect }/>
 
           <RestaurantDetail
             selectedRestaurant={ this.state.selectedRestaurant }
             selectedFavourite={ this.state.selectedFavourite }
-            markFav={ this.handleAddFav }/>
-            deleteFav={ this.handleDeleteFav }/>
+            markFav={ this.handleAddFav }
+            deleteFav={ this.handleDeleteFav }
+            favourite={ this.state.favourite }
+            checkboxFav={ this.handleCheckbox }/>
 
           <RestaurantList
             restaurants={ this.state.restaurants }
@@ -212,7 +234,8 @@ class RestaurantContainer extends Component {
             favListChecked={ this.state.favListChecked }
             favRestaurants={ this.state.favRestaurants }
             onSelect={this.handleSelect}
-            selectedFavourite={ this.state.selectedFavourite }/>
+            selectedFavourite={ this.state.selectedFavourite }
+            selectedRestaurant={ this.state.selectedRestaurant }/>
       </div>
     )
   }

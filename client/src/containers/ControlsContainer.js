@@ -3,6 +3,7 @@ import Search from '../components/Search.js';
 import Filter from '../components/Filter.js'
 import NameFilter from '../components/NameFilter.js'
 import FilterTypeSelect from '../components/FilterTypeSelect.js'
+import './ControlsContainer.css'
 
 const ControlsContainer = (props) => {
 
@@ -25,7 +26,7 @@ const ControlsContainer = (props) => {
 
   // <FilterTypeSelect onFilterTypeSelect={ props.onFilterTypeSelect }/>
   return (
-    <div>
+    <div id="search-items">
       <Search
         onSearchChange={ props.onSearchChange }
         searchTerm={ props.searchTerm }
