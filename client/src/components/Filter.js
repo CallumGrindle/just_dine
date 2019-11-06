@@ -13,11 +13,12 @@ const Filter = (props) => {
   }
 
   return (
-    <select onChange={handleCuisineSelect}>
+    <select defaultValue='Select a Cuisine' onChange={handleCuisineSelect}>
+      <option disabled>Select a Cuisine</option>
+      <option>Show all</option>
       {cuisineTypeNodes}
     </select>
   )
-
 }
 
 export default Filter

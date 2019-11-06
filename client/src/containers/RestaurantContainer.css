@@ -8,3 +8,7 @@
   border-style: solid;
   padding: 10px
 }
+* {
+  /* cursor: url(/colours-small.png), auto; */
+  cursor: default;
+}

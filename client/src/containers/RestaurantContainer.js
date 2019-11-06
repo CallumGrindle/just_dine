@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { BrowserRouter as Router, Route, Link, useParams } from 'react-router-dom';
 import { ZomatoKey } from '../keys.js';
 import RestaurantList from '../components/RestaurantList';
+import FilteredRestaurantList from '../components/FilteredRestaurantsList.js';
 import ControlsContainer from '../containers/ControlsContainer.js';
 import RestaurantDetail from '../components/RestaurantDetail';
 import AppHeader from '../components/AppHeader';
@@ -16,10 +17,16 @@ class RestaurantContainer extends Component {
       super(props);
       this.state = {
         restaurants: [],
+        filteredRestaurants: [],
+        showFilteredRestaurants: false,
         searchTerm: '',
+        nameFilter: '',
         selectedRestaurant: null,
         favRestaurants: [],
         favListChecked: false,
+        selectedFavourite: null,
+        loading: false,
+        filterType: null,
         loading: false,
         favourite: false
       }
@@ -32,9 +39,10 @@ class RestaurantContainer extends Component {
       this.handleCuisineSelect = this.handleCuisineSelect.bind(this);
       this.handleDeleteFav = this.handleDeleteFav.bind(this);
       this.handleFavListSelect = this.handleFavListSelect.bind(this);
+      this.handleNameFilter = this.handleNameFilter.bind(this);
+      this.handleFilterTypeChange = this.handleFilterTypeChange.bind(this);
       this.handleCheckbox = this.handleCheckbox.bind(this);
-    };
-
+    }
 
   componentDidMount() {
     this.setState({loading: true})
@@ -96,39 +104,6 @@ class RestaurantContainer extends Component {
     this.setState({ favListChecked: false })
   }
 
-  apiSearchCityId(id) {
-    const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${id}&entity_type=city`
-    fetch(url, {
-      headers: {
-        'user-key': `${ZomatoKey}`
-      }
-    })
-    .then(res => res.json())
-    .then(data => this.setState({ restaurants: data.restaurants }))
-    .catch(err => console.error(err))
-
-    this.setState({ favListChecked: false })
-  }
-
-
-
-  handleCuisineSelect(cuisine) {
-    console.log(cuisine);
-    const filteredRestaurants = this.state.restaurants.filter((restaurant) => {
-      return restaurant.restaurant.cuisines === cuisine;
-    })
-    console.log(filteredRestaurants);
-    this.setState({ restaurants: filteredRestaurants })
-    this.setState({ favListChecked: false })
-  }
-
-  cuisineTypes() {
-    const cuisineTypes = new Set(this.state.restaurants.map((restaurant) => {
-      return restaurant.restaurant.cuisines
-    }))
-    return cuisineTypes;
-  }
-
   handleFavListSelect(){
     this.setState({ favListChecked: true })
     this.setState({ selectedRestaurant: null })
@@ -161,8 +136,56 @@ class RestaurantContainer extends Component {
       const restaurantId = restaurantFromFaves._id;
       Favourites.delete(restaurantId)
       .then(favRestaurants => this.setState({ favRestaurants }))
-    }
+  }
 
+  apiSearchCityId(id) {
+    const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${id}&entity_type=city`
+    fetch(url, {
+      headers: {
+        'user-key': `${ZomatoKey}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => this.setState({ restaurants: data.restaurants }))
+    .catch(err => console.error(err))
+
+    this.setState({ favListChecked: false })
+  }
+
+  handleCuisineSelect(cuisine) {
+    if (cuisine === 'Show all') {
+      this.setState({ showFilteredRestaurants: false });
+      return;
+    }
+    const filteredRestaurants = this.state.restaurants.filter((restaurant) => {
+      return restaurant.restaurant.cuisines === cuisine;
+    });
+    this.setState({ filteredRestaurants: filteredRestaurants, showFilteredRestaurants: true,
+       selectedRestaurant: null })
+    this.setState({ favListChecked: false })
+  }
+
+  cuisineTypes() {
+    const cuisineTypes = new Set(this.state.restaurants.map((restaurant) => {
+      return restaurant.restaurant.cuisines
+    }))
+    return cuisineTypes;
+  }
+
+  handleNameFilter(searchTerm) {
+    this.setState({ nameFilter: searchTerm });
+    const filteredRestaurants = this.state.restaurants.filter((restaurant) => {
+      const name = restaurant.restaurant.name.toLowerCase();
+      const nameToFind = searchTerm.toLowerCase()
+      return name.includes(searchTerm);
+    })
+    this.setState({ filteredRestaurants: filteredRestaurants, showFilteredRestaurants: true,
+       selectedRestaurant: null })
+  }
+
+  handleFilterTypeChange(type) {
+    this.setState({ filterType: type });
+  }
 
   render() {
     if (this.state.loading) {
@@ -170,7 +193,6 @@ class RestaurantContainer extends Component {
         <h1 className="loading-message">Loading Restaurants...</h1>
       )
     }
-
     return (
         <div className="restaurant-container" id="main-container">
           <AppHeader
@@ -179,23 +201,43 @@ class RestaurantContainer extends Component {
             searchTerm={ this.state.searchTerm }
             cuisineTypes={ this.cuisineTypes() }
             onCuisineSelect={ this.handleCuisineSelect }
-            onSelectFavList={ this.handleFavListSelect } />
+            nameFilter={ this.nameFilter }
+            onNameFilterInput={ this.handleNameFilter }
+            onFilterTypeSelect={ this.handleFilterTypeChange }
+            filterType={ this.state.filterType }
+            onSelectFavList={ this.handleFavListSelect }/>
+
           <RestaurantDetail
             selectedRestaurant={ this.state.selectedRestaurant }
+            selectedFavourite={ this.state.selectedFavourite }
+            markFav={ this.handleAddFav }
+            deleteFav={ this.handleDeleteFav }
             favourite={ this.state.favourite }
             checkboxFav={ this.handleCheckbox }/>
+
           <RestaurantList
-            favListChecked={ this.state.favListChecked }
             restaurants={ this.state.restaurants }
             onSelect={this.handleSelect}
-            selectedRestaurant={ this.state.selectedRestaurant }/>
+            favListChecked={ this.state.favListChecked }
+            selectedRestaurant={ this.state.selectedRestaurant }
+            showFilteredRestaurants={ this.state.showFilteredRestaurants }/>
+
+          <FilteredRestaurantList
+            restaurants={ this.state.filteredRestaurants }
+            onSelect={this.handleSelect}
+            favListChecked={ this.state.favListChecked }
+            selectedRestaurant={ this.state.selectedRestaurant }
+            showFilteredRestaurants={ this.state.showFilteredRestaurants }/>
+
           <FavouritesList
+            restaurants= {  this.state.restaurants }
             favListChecked={ this.state.favListChecked }
             favRestaurants={ this.state.favRestaurants }
-            onSelect={ this.handleSelect }
+            onSelect={this.handleSelect}
+            selectedFavourite={ this.state.selectedFavourite }
             selectedRestaurant={ this.state.selectedRestaurant }/>
-        </div>
-      );
+      </div>
+    )
   }
 }
 
