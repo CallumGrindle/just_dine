@@ -14,6 +14,7 @@ const Filter = (props) => {
 
   return (
     <select onChange={handleCuisineSelect}>
+      <option selected="selected" disabled>Select a Cuisine</option>
       {cuisineTypeNodes}
     </select>
   )
