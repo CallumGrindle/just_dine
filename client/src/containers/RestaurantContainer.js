@@ -152,7 +152,14 @@ class RestaurantContainer extends Component {
   }
 
   handleNameFilter(searchTerm) {
-    this.setState({ nameFilter: searchTerm })
+    this.setState({ nameFilter: searchTerm });
+    const filteredRestaurants = this.state.restaurants.filter((restaurant) => {
+      const name = restaurant.restaurant.name.toLowerCase();
+      const nameToFind = searchTerm.toLowerCase()
+      return name.includes(searchTerm);
+    })
+    this.setState({ filteredRestaurants: filteredRestaurants, showFilteredRestaurants: true,
+       selectedRestaurant: null })
   }
 
   render() {
