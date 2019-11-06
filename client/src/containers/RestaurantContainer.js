@@ -100,16 +100,13 @@ class RestaurantContainer extends Component {
     .then(res => res.json())
     .then(data => this.apiSearchCityId(data['location_suggestions'][0].id))
     .catch(err => console.error(err));
+
+    this.setState({ favListChecked: false })
   }
 
   handleFavListSelect(){
-      this.setState({ favListChecked: true })
-    }
-
-  handleFavSelector(restaurant) {
-    if (restaurant._id) {
-      return console.log("yes")
-    }
+    this.setState({ favListChecked: true })
+    this.setState({ selectedRestaurant: null })
   }
 
   handleCheckbox(restaurant) {
@@ -130,14 +127,14 @@ class RestaurantContainer extends Component {
           favRestaurants: [...this.state.favRestaurants, addRestaurant]
         }))
       }
-  }
+    }
 
   handleDeleteFav(restaurant) {
-    const restaurantFromFaves = this.state.favRestaurants.find(currentRestaurant => {
-      return restaurant.restaurant.id === currentRestaurant.restaurant.id;
-    })
-    const restaurantId = restaurantFromFaves._id;
-    Favourites.delete(restaurantId)
+      const restaurantFromFaves = this.state.favRestaurants.find(currentRestaurant => {
+        return restaurant.restaurant.id === currentRestaurant.restaurant.id;
+      })
+      const restaurantId = restaurantFromFaves._id;
+      Favourites.delete(restaurantId)
       .then(favRestaurants => this.setState({ favRestaurants }))
   }
 
@@ -151,6 +148,8 @@ class RestaurantContainer extends Component {
     .then(res => res.json())
     .then(data => this.setState({ restaurants: data.restaurants }))
     .catch(err => console.error(err))
+
+    this.setState({ favListChecked: false })
   }
 
   handleCuisineSelect(cuisine) {
@@ -163,6 +162,7 @@ class RestaurantContainer extends Component {
     });
     this.setState({ filteredRestaurants: filteredRestaurants, showFilteredRestaurants: true,
        selectedRestaurant: null })
+    this.setState({ favListChecked: false })
   }
 
   cuisineTypes() {
