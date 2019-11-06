@@ -92,16 +92,46 @@ class RestaurantContainer extends Component {
     .then(res => res.json())
     .then(data => this.apiSearchCityId(data['location_suggestions'][0].id))
     .catch(err => console.error(err));
+
+    this.setState({ favListChecked: false })
+  }
+
+  apiSearchCityId(id) {
+    const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${id}&entity_type=city`
+    fetch(url, {
+      headers: {
+        'user-key': `${ZomatoKey}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => this.setState({ restaurants: data.restaurants }))
+    .catch(err => console.error(err))
+
+    this.setState({ favListChecked: false })
+  }
+
+
+
+  handleCuisineSelect(cuisine) {
+    console.log(cuisine);
+    const filteredRestaurants = this.state.restaurants.filter((restaurant) => {
+      return restaurant.restaurant.cuisines === cuisine;
+    })
+    console.log(filteredRestaurants);
+    this.setState({ restaurants: filteredRestaurants })
+    this.setState({ favListChecked: false })
+  }
+
+  cuisineTypes() {
+    const cuisineTypes = new Set(this.state.restaurants.map((restaurant) => {
+      return restaurant.restaurant.cuisines
+    }))
+    return cuisineTypes;
   }
 
   handleFavListSelect(){
-      this.setState({ favListChecked: true })
-    }
-
-  handleFavSelector(restaurant) {
-    if (restaurant._id) {
-      return console.log("yes")
-    }
+    this.setState({ favListChecked: true })
+    this.setState({ selectedRestaurant: null })
   }
 
   handleCheckbox(restaurant) {
@@ -122,44 +152,17 @@ class RestaurantContainer extends Component {
           favRestaurants: [...this.state.favRestaurants, addRestaurant]
         }))
       }
-  }
+    }
 
   handleDeleteFav(restaurant) {
-    const restaurantFromFaves = this.state.favRestaurants.find(currentRestaurant => {
-      return restaurant.restaurant.id === currentRestaurant.restaurant.id;
-    })
-    const restaurantId = restaurantFromFaves._id;
-    Favourites.delete(restaurantId)
+      const restaurantFromFaves = this.state.favRestaurants.find(currentRestaurant => {
+        return restaurant.restaurant.id === currentRestaurant.restaurant.id;
+      })
+      const restaurantId = restaurantFromFaves._id;
+      Favourites.delete(restaurantId)
       .then(favRestaurants => this.setState({ favRestaurants }))
-  }
+    }
 
-  handleCuisineSelect(cuisine) {
-    console.log(cuisine);
-    const filteredRestaurants = this.state.restaurants.filter((restaurant) => {
-      return restaurant.restaurant.cuisines === cuisine;
-    })
-    console.log(filteredRestaurants);
-    this.setState({ restaurants: filteredRestaurants })
-  }
-
-  apiSearchCityId(id) {
-    const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${id}&entity_type=city`
-    fetch(url, {
-      headers: {
-        'user-key': `${ZomatoKey}`
-      }
-    })
-    .then(res => res.json())
-    .then(data => this.setState({ restaurants: data.restaurants }))
-    .catch(err => console.error(err))
-  }
-
-  cuisineTypes() {
-    const cuisineTypes = new Set(this.state.restaurants.map((restaurant) => {
-      return restaurant.restaurant.cuisines
-    }))
-    return cuisineTypes;
-  }
 
   render() {
     if (this.state.loading) {
